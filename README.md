@@ -58,7 +58,7 @@ var decrypted = crypto.decrypt('af1ed6d214', 'secret-key')
 <a name="hash"></a>
 ### hash (value, [options])
 
-Hashes a string with the provided algorithm, automatically adding a random 8 character salt to the start and end of the value.
+Hashes a string with the provided algorithm.
 
 - `value` The value you want to hash.
 - `options`
