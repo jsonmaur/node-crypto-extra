@@ -38,11 +38,10 @@ import { hash, random } from 'crypto-extra'
 ### encrypt (value, [secretKey])
 
 - `value` The value you want to encrypt. Uses AES256-CTR. Supports strings, numbers, and objects.
-- `secretKey` The secret key used to encrypt your value. This is optional, and will fallback to the environment variable `ENCRYPTION_KEY`.
+- `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`, and will throw an error if a secret key isn't provided or is not an environment variable.
 
 ```javascript
 var encrypted = crypto.encrypt('my-message', 'secret-key') // encrypt a string
-
 var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key') // encrypt an object
 ```
 
@@ -50,22 +49,26 @@ var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key') // encrypt an object
 ### decrypt (value, [secretKey])
 
 - `value` The AES256-CTR encrypted string you want to decrypt.
-- `secretKey` The secret key used to encrypt your value. This is optional, and will fallback to the environment variable `ENCRYPTION_KEY`.
+- `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`.
 
 ```javascript
 var decrypted = crypto.decrypt('af1ed6d214', 'secret-key')
 ```
 
 <a name="hash"></a>
-### hash (value, algorithm)
+### hash (value, [options])
+
+Hashes a string with the provided algorithm, automatically adding a random 8 character salt to the start and end of the value.
 
 - `value` The value you want to hash.
-- `algorithm` [default: `SHA256`] The hashing algorithm you want to use.
+- `options`
+  - `salt` Will be appended to the string before it is hashed.
+  - `algorithm` [default: `SHA256`] The hashing algorithm to use.
 
 ```javascript
 var hashed = crypto.hash('my-message') // SHA256
-
-var hashed = crypto.hash('my-message', 'MD5') // MD5
+var hashed = crypto.hash('my-message', 'this-is-a-salt') // SHA256 with salt
+var hashed = crypto.hash('my-message', null, 'MD5') // MD5
 ```
 
 <a name="bcrypt"></a>
@@ -79,14 +82,14 @@ Returns a promise with the hash or boolean if comparing.
 ```javascript
 /* to hash */
 crypto.bcrypt('my-password')
-  .then(hash => {
+  .then(function(hash) {
     /* store hash in db */
   })
 
 /* to validate a hash */
 var hash = '$2a$10$4aIbKI4tBwDxoHeLMsuPseVsLyIL/PgDgVz2K5MwyM9jWbjYDbAZW'
 crypto.bcrypt('my-password', hash)
-  .then(isValid => {
+  .then(function(isValid) {
     /* make sure password is valid */
   })
 ```
@@ -96,10 +99,9 @@ crypto.bcrypt('my-password', hash)
 
 Returns a random string of any defined length.
 
-- `length` [default: `32`] The length of the string you want
+- `length` [default: `32`] The length of the string you want. Must be an even number above 0.
 
 ```javascript
 var randomString = crypto.random() // length of 32
-
 var randomString = crypto.random(64) // length of 64
 ```

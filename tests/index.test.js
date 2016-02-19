@@ -40,15 +40,23 @@ test('crypto', function(t) {
   })
 
   t.test('hash()', function(st) {
-    st.plan(2)
+    st.plan(3)
     st.equal(
       crypto.hash('hey'),
-      'baeb867c70224060d6f46ed1a8d7f5eab765c1785048afd7c37e320e7f86eeda',
+      'fa690b82061edfd2852629aeba8a8977b57e40fcb77d1a7a28b26cba62591204',
       'hash a string with sha256')
     st.equal(
-      crypto.hash('hey', 'md5'),
-      '8d4e533358362e22c742567ec589143a',
+      crypto.hash('hey', {
+        algorithm: 'md5'
+      }),
+      '6057f13c496ecf7fd777ceb9e79ae285',
       'hash a string with md5')
+    st.equal(
+      crypto.hash('hey', {
+        salt: 'yo-this-is-a-salt'
+      }),
+      '823b71179cf443300b9e1bdecc326382502ad185d0661a06d54423a6c9a10b02',
+      'hash a string with a salt')
   })
 
   t.test('bcrypt()', function(st) {

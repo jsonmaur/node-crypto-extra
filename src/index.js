@@ -23,6 +23,7 @@ export function encrypt (value, key) {
   else if (typeof value !== 'string') return
 
   key = key || process.env.ENCRYPTION_KEY
+  if (!key) throw new Error('you need an encryption key!')
 
   let cipher = crypto.createCipher('aes-256-ctr', key)
   let encrypted = cipher.update(value, 'utf8', 'hex')
@@ -56,13 +57,18 @@ export function decrypt (value, key) {
 /**
  * create a hash
  * @param value (string) the value to hash
+ * @param salt (string) the salt to use when hashing
  * @param algorithm (string, optional) the hashing algorithm to use
  */
 
-export function hash (value, algorithm = 'sha256') {
-  return crypto.createHash(algorithm)
+export function hash (value, options = {}) {
+  options.salt = options.salt || undefined
+  options.algorithm = options.algorithm || 'sha256'
+
+  if (options.salt) value += options.salt
+
+  return crypto.createHash(options.algorithm)
     .update(value)
-    .update('salt')
     .digest('hex')
 }
 
