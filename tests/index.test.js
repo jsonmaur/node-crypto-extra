@@ -1,4 +1,4 @@
-var test = require('blue-tape')
+var test = require('tape')
 var crypto = require('../lib/index')
 
 test('crypto', function(t) {
@@ -60,7 +60,7 @@ test('crypto', function(t) {
   })
 
   t.test('bcrypt()', function(st) {
-    return crypto.bcrypt('hey')
+    crypto.bcrypt('hey')
       .then(function(hash) {
         st.equal(
           typeof hash,
@@ -71,14 +71,18 @@ test('crypto', function(t) {
           -1,
           'should include a dollar sign')
       })
+      .then(st.end)
+      .catch(st.error)
   })
 
   t.test('bcrypt() compare', function(st) {
     var hashed = '$2a$10$Y9k5MdpqPHx5ZCV7F7sq/OytrUY.uwUJURLgTiTdknJso.in/Qnr2'
-    return crypto.bcrypt('hey', hashed)
+    crypto.bcrypt('hey', hashed)
       .then(function(res) { st.ok(res, 'hashes match') })
       .then(function() { crypto.bcrypt('heyy', hashed) })
       .then(function(res) { st.notOk(res, 'hashes do not match') })
+      .then(st.end)
+      .catch(st.error)
   })
 
   t.test('random()', function(st) {
