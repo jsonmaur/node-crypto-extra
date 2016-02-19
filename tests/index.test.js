@@ -61,7 +61,7 @@ test('crypto', function(t) {
 
   t.test('bcrypt()', function(st) {
     return crypto.bcrypt('hey')
-      .then(hash => {
+      .then(function(hash) {
         st.equal(
           typeof hash,
           'string',
@@ -76,9 +76,9 @@ test('crypto', function(t) {
   t.test('bcrypt() compare', function(st) {
     var hashed = '$2a$10$Y9k5MdpqPHx5ZCV7F7sq/OytrUY.uwUJURLgTiTdknJso.in/Qnr2'
     return crypto.bcrypt('hey', hashed)
-      .then(res => st.ok(res, 'hashes match'))
-      .then(() => crypto.bcrypt('heyy', hashed))
-      .then(res => st.notOk(res, 'hashes do not match'))
+      .then(function(res) { st.ok(res, 'hashes match') })
+      .then(function() { crypto.bcrypt('heyy', hashed) })
+      .then(function(res) { st.notOk(res, 'hashes do not match') })
   })
 
   t.test('random()', function(st) {
@@ -92,11 +92,19 @@ test('crypto', function(t) {
       64,
       'random with length of 64')
     st.throws(
-      () => crypto.random(0),
+      function() { crypto.random(0) },
       'random with length 0')
     st.throws(
-      () => crypto.random(31),
+      function() { crypto.random(31) },
       'random with odd length')
+  })
+
+  t.test('crypto()', function(st) {
+    st.plan(1)
+    st.equal(
+      typeof crypto.createHmac,
+      'function',
+      'extends base crypto class')
   })
 
 })

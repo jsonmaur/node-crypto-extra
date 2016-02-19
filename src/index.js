@@ -6,7 +6,7 @@ import crypto, { randomBytes } from 'crypto'
 import bcryptjs from 'bcryptjs'
 import dn from 'denodeify'
 
-export default Object.assign(crypto, {
+module.exports = Object.assign(crypto, {
   encrypt, decrypt, hash, bcrypt, random
 })
 
