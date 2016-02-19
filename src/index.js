@@ -6,7 +6,9 @@ import crypto, { randomBytes } from 'crypto'
 import bcryptjs from 'bcryptjs'
 import dn from 'denodeify'
 
-export default crypto
+export default Object.assign(crypto, {
+  encrypt, decrypt, hash, bcrypt, random
+})
 
 /**
  * encrypt a value using AES256-CTR

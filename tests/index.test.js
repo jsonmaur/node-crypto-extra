@@ -1,9 +1,9 @@
-import test from 'blue-tape'
-import * as crypto from '../src/index'
+var test = require('blue-tape')
+var crypto = require('../lib/index')
 
-test('crypto', t => {
+test('crypto', function(t) {
 
-  t.test('encrypt()', st => {
+  t.test('encrypt()', function(st) {
     st.plan(4)
     st.equal(
       crypto.encrypt('hey', 'secret'),
@@ -23,8 +23,8 @@ test('crypto', t => {
       'encrypt an invalid value')
   })
 
-  t.test('decrypt()', st => {
-    st.plan(2)
+  t.test('decrypt()', function(st) {
+    st.plan(3)
     st.equal(
       crypto.decrypt('32950d', 'secret'),
       'hey',
@@ -33,9 +33,13 @@ test('crypto', t => {
       crypto.decrypt('21d21c968c2fa0fe37128f41803069', 'secret'),
       {hello: 'hey'},
       'decrypt an object')
+    st.equal(
+      crypto.decrypt(true, 'secret'),
+      undefined,
+      'decrypt an invalid value')
   })
 
-  t.test('hash()', st => {
+  t.test('hash()', function(st) {
     st.plan(2)
     st.equal(
       crypto.hash('hey'),
@@ -47,7 +51,7 @@ test('crypto', t => {
       'hash a string with md5')
   })
 
-  t.test('bcrypt()', st => {
+  t.test('bcrypt()', function(st) {
     return crypto.bcrypt('hey')
       .then(hash => {
         st.equal(
@@ -61,15 +65,15 @@ test('crypto', t => {
       })
   })
 
-  t.test('bcrypt() compare', st => {
-    let hashed = '$2a$10$Y9k5MdpqPHx5ZCV7F7sq/OytrUY.uwUJURLgTiTdknJso.in/Qnr2'
+  t.test('bcrypt() compare', function(st) {
+    var hashed = '$2a$10$Y9k5MdpqPHx5ZCV7F7sq/OytrUY.uwUJURLgTiTdknJso.in/Qnr2'
     return crypto.bcrypt('hey', hashed)
       .then(res => st.ok(res, 'hashes match'))
       .then(() => crypto.bcrypt('heyy', hashed))
       .then(res => st.notOk(res, 'hashes do not match'))
   })
 
-  t.test('random()', st => {
+  t.test('random()', function(st) {
     st.plan(4)
     st.equal(
       crypto.random().length,
