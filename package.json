@@ -4,7 +4,11 @@
   "description": "convenience methods for node crypto",
   "author": "Jason Maurer <j@maur.co>",
   "license": "MIT",
-  "main": "lib/index.js",
+  "homepage": "https://github.com/jsonmaur/node-crypto-extra",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsonmaur/node-crypto-extra"
+  },
   "keywords": [
     "crypto",
     "cryptography",
@@ -22,6 +26,7 @@
     "cipher",
     "extra"
   ],
+  "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && babel src -d lib --source-maps true --no-comments",
     "istanbul": "npm run build && istanbul cover tests/index.test.js | tap-spec",
