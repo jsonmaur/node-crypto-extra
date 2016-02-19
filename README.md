@@ -2,11 +2,11 @@
 [![Build Status](https://travis-ci.org/jsonmaur/node-crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/node-crypto-extra)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmaur/node-crypto-extra/badge.svg?branch=master)](https://coveralls.io/github/jsonmaur/node-crypto-extra?branch=master)
 
-`crypto-extra` adds a few convenience methods to the native Node.js module `crypto`. It is a drop in replacement for `crypto`, meaning it extends the original functionality with the extra methods on top.
+Adds a few convenience methods to the native Node.js module `crypto`. It is a drop in replacement for [crypto](https://nodejs.org/api/crypto.html), meaning it extends the original functionality with the extra methods on top.
 
 ## Why?
 
-The native `crypto` module requires a lot of boilerplate to do things such as hashing and encryption. This takes care of the boilerplate for you allowing you to maintain cleaner code.
+The native `crypto` module requires a lot of boilerplate to do things such as hashing and encryption. This takes care of the boilerplate allowing cleaner code.
 
 ## Getting Started
 
@@ -37,7 +37,9 @@ import { hash, random } from 'crypto-extra'
 <a name="encrypt"></a>
 ### encrypt (value, [secretKey])
 
-- `value` The value you want to encrypt. Uses AES256-CTR. Supports strings, numbers, and objects.
+Encrypts a value using AES256-CTR.
+
+- `value` The value you want to encrypt. Supports strings, numbers, and objects.
 - `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`, and will throw an error if a secret key isn't provided or is not an environment variable.
 
 ```javascript
@@ -48,7 +50,9 @@ var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key') // encrypt an object
 <a name="decrypt"></a>
 ### decrypt (value, [secretKey])
 
-- `value` The AES256-CTR encrypted string you want to decrypt.
+Decrypts a value that was encrypted using AES256-CTR.
+
+- `value` The encrypted string you want to decrypt.
 - `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`.
 
 ```javascript
@@ -67,14 +71,14 @@ Hashes a string with the provided algorithm.
 
 ```javascript
 var hashed = crypto.hash('my-message') // SHA256
-var hashed = crypto.hash('my-message', 'this-is-a-salt') // SHA256 with salt
-var hashed = crypto.hash('my-message', null, 'MD5') // MD5
+var hashed = crypto.hash('my-message', { salt: 'this-is-a-salt' }) // SHA256 with salt
+var hashed = crypto.hash('my-message', { algorithm: 'MD5' }) // MD5
 ```
 
 <a name="bcrypt"></a>
 ### bcrypt (value, [hashToCompare])
 
-Returns a promise with the hash or boolean if comparing.
+Returns a promise with the hash. If comparing a string to a hash, it will return a boolean.
 
 - `value` The value you want to hash with bcrypt
 - `hashToCompare` Optional value. If provided, it will attempt to validate the hash. (ex. comparing a password to a hashed value in the database).
