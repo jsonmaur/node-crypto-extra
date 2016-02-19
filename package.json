@@ -17,15 +17,20 @@
     "cipher"
   ],
   "scripts": {
-    "test": "babel-node tests/index.test.js | tap-spec",
+    "tape": "babel-node node_modules/.bin/babel-istanbul cover tests/index.test.js | tap-spec",
+    "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js && rm -rf coverage",
+    "test": "npm run tape && npm run coveralls",
     "build": "rm -rf lib && babel src -d lib --source-maps true --no-comments",
     "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "6.5.1",
+    "babel-istanbul": "0.6.0",
     "babel-polyfill": "6.5.0",
     "babel-preset-es2015": "6.5.0",
     "blue-tape": "0.2.0",
+    "coveralls": "2.11.6",
+    "istanbul": "0.4.2",
     "tap-spec": "4.1.1"
   },
   "dependencies": {

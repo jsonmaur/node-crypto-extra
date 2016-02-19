@@ -1,4 +1,5 @@
 # crypto-extra
+[![Build Status](https://travis-ci.org/jsonmaur/crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/crypto-extra)
 
 `crypto-extra` adds a few convenience methods to the native Node.js module `crypto`. It is a drop in replacement for `crypto`, meaning it extends the original functionality with the extra methods on top.
 
