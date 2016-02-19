@@ -7,14 +7,20 @@
   "main": "lib/index.js",
   "keywords": [
     "crypto",
+    "cryptography",
     "hash",
+    "sha256",
+    "md5",
     "bcrypt",
     "random",
+    "hex",
     "encrypt",
     "encryption",
+    "key",
     "decrypt",
     "aes256",
-    "cipher"
+    "cipher",
+    "extra"
   ],
   "scripts": {
     "build": "rm -rf lib && babel src -d lib --source-maps true --no-comments",
