@@ -34,6 +34,7 @@ import { hash, random } from 'crypto-extra'
 - [random](#random)
 - [all other native crypto methods](https://nodejs.org/api/crypto.html)
 
+<a name="encrypt"></a>
 ### encrypt (value, [secretKey])
 
 - `value` The value you want to encrypt. Uses AES256-CTR. Supports strings, numbers, and objects.
@@ -45,6 +46,7 @@ var encrypted = crypto.encrypt('my-message', 'secret-key') // encrypt a string
 var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key') // encrypt an object
 ```
 
+<a name="decrypt"></a>
 ### decrypt (value, [secretKey])
 
 - `value` The AES256-CTR encrypted string you want to decrypt.
@@ -54,6 +56,7 @@ var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key') // encrypt an object
 var decrypted = crypto.decrypt('af1ed6d214', 'secret-key')
 ```
 
+<a name="hash"></a>
 ### hash (value, algorithm)
 
 - `value` The value you want to hash.
@@ -65,6 +68,7 @@ var hashed = crypto.hash('my-message') // SHA256
 var hashed = crypto.hash('my-message', 'MD5') // MD5
 ```
 
+<a name="bcrypt"></a>
 ### bcrypt (value, [hashToCompare])
 
 Returns a promise with the hash or boolean if comparing.
@@ -87,6 +91,7 @@ crypto.bcrypt('my-password', hash)
   })
 ```
 
+<a name="random"></a>
 ### random (length)
 
 Returns a random string of any defined length.
