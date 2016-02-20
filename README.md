@@ -109,3 +109,8 @@ Returns a random string of any defined length.
 var randomString = crypto.random() // length of 32
 var randomString = crypto.random(64) // length of 64
 ```
+
+## Contributing & Testing
+`crypto-extra` is built with ES2015 features, so Babel compilation is necesary. Run `npm run build` to compile.
+
+To run tests, make sure you install dependencies with `npm install`, then just run `npm test`.
