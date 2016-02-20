@@ -78,9 +78,18 @@ test('crypto', function(t) {
   t.test('bcrypt() compare', function(st) {
     var hashed = '$2a$10$Y9k5MdpqPHx5ZCV7F7sq/OytrUY.uwUJURLgTiTdknJso.in/Qnr2'
     crypto.bcrypt('hey', hashed)
-      .then(function(res) { st.ok(res, 'hashes match') })
-      .then(function() { crypto.bcrypt('heyy', hashed) })
-      .then(function(res) { st.notOk(res, 'hashes do not match') })
+      .then(function(res) {
+        st.ok(res, 'hashes match')
+        return
+      })
+      .then(function() {
+        crypto.bcrypt('heyy', hashed)
+        return
+      })
+      .then(function(res) {
+        st.notOk(res, 'hashes do not match')
+        return
+      })
       .then(st.end)
       .catch(st.error)
   })
