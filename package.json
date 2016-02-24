@@ -30,9 +30,10 @@
   "scripts": {
     "build": "rm -rf lib && babel src -d lib --source-maps true --no-comments",
     "lint": "eslint src",
-    "istanbul": "npm run build && istanbul cover tests/index.test.js | tap-spec",
     "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js && rm -rf coverage",
-    "test": "npm run lint && npm run istanbul && npm run coveralls",
+    "pretest": "npm outdated && npm run lint",
+    "test": "npm run build && istanbul cover tests/index.test.js | tap-spec",
+    "posttest": "npm run coveralls",
     "prepublish": "npm run build"
   },
   "devDependencies": {
