@@ -2,7 +2,6 @@
  * dependencies
  */
 
-import 'babel-polyfill'
 import crypto, { randomBytes } from 'crypto'
 import bcryptjs from 'bcryptjs'
 import dn from 'denodeify'

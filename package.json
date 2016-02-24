@@ -46,7 +46,6 @@
     "tape": "4.4.0"
   },
   "dependencies": {
-    "babel-polyfill": "6.5.0",
     "bcryptjs": "2.3.0",
     "denodeify": "1.2.1"
   },
