@@ -2,9 +2,15 @@
  * dependencies
  */
 
+require('es6-promise').polyfill() // for use of denodeify
+
 import crypto, { randomBytes } from 'crypto'
 import bcryptjs from 'bcryptjs'
 import dn from 'denodeify'
+
+/**
+ * api
+ */
 
 module.exports = Object.assign(crypto, {
   encrypt, decrypt, hash, bcrypt, random
