@@ -1,7 +1,3 @@
-/**
- * dependencies
- */
-
 require('es6-promise').polyfill() // for use of denodeify
 
 import crypto, { randomBytes } from 'crypto'
@@ -13,16 +9,19 @@ import dn from 'denodeify'
  */
 
 module.exports = Object.assign(crypto, {
-  encrypt, decrypt, hash, bcrypt, random
+  encrypt,
+  decrypt,
+  hash,
+  bcrypt,
+  random,
 })
 
 /**
  * encrypt a value using AES256-CTR
- * @param value (string) the string to encrypt
- * @param key (string, optional) the private key to use
+ * @param {string} value The string to encrypt
+ * @param {string} key The private key to use
  */
-
-export function encrypt (value, key) {
+export function encrypt(value, key) {
   /* only allow strings and numbers */
   if (typeof value === 'number') value = String(value)
   else if (typeof value === 'object') value = JSON.stringify(value)
@@ -40,11 +39,10 @@ export function encrypt (value, key) {
 
 /**
  * decrypt a value using AES256-CTR
- * @param value (string) the encrypted string to decrypt
- * @param key (string, optional) the private key to use
+ * @param {string} value The encrypted string to decrypt
+ * @param {string} key The private key to use
  */
-
-export function decrypt (value, key) {
+export function decrypt(value, key) {
   if (typeof value !== 'string') return
 
   key = key || process.env.ENCRYPTION_KEY
@@ -62,12 +60,9 @@ export function decrypt (value, key) {
 
 /**
  * create a hash
- * @param value (string) the value to hash
- * @param salt (string) the salt to use when hashing
- * @param algorithm (string, optional) the hashing algorithm to use
+ * @param {string} value The value to hash
  */
-
-export function hash (value, options = {}) {
+export function hash(value, options = {}) {
   options.salt = options.salt || undefined
   options.algorithm = options.algorithm || 'sha256'
 
@@ -80,32 +75,34 @@ export function hash (value, options = {}) {
 
 /**
  * for hashing to bcrypt, and comparing to a hash.
- * @param value (string) the value to hash
- * @param hash (string, optional) if provided, the hash to compare
+ * @param {string} value The value to hash
+ * @param {string} hash If provided, the hash to compare
  */
-
-export function bcrypt (value, hash) {
+export function bcrypt(value, hash) {
   if (hash) {
     return dn(bcryptjs.compare)(value, hash)
-  } else {
-    return dn(bcryptjs.genSalt)(10)
-      .then(salt => dn(bcryptjs.hash)(value, salt))
   }
+
+  return dn(bcryptjs.genSalt)(10)
+    .then(salt => dn(bcryptjs.hash)(value, salt))
 }
 
 /**
- * creates a random hex value
- * @param size (int, optional) the size of the returned string
+ * creates a random string
+ * @param {int} size The size of the returned string
  */
-
-export function random (size = 32) {
-  if (size === 0) {
-    throw new Error('zero-length randomHex is useless')
+export function random(size = 10) {
+  if (size <= 0) {
+    throw new Error('random size must be above 0!')
   }
 
-  if (size % 2 !== 0) {
-    throw new Error('randomHex size must be even')
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let bytes = randomBytes(size)
+
+  let value = ''
+  for (let i = 0; i < bytes.length; ++i) {
+    value += chars[bytes.readUInt8(i) % chars.length]
   }
 
-  return randomBytes(size / 2).toString('hex')
+  return value
 }

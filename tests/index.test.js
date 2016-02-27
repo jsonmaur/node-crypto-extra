@@ -80,36 +80,37 @@ test('crypto', function(t) {
     crypto.bcrypt('hey', hashed)
       .then(function(res) {
         st.ok(res, 'hashes match')
-        return
+        // return
       })
       .then(function() {
         crypto.bcrypt('heyy', hashed)
-        return
+        // return
       })
       .then(function(res) {
         st.notOk(res, 'hashes do not match')
-        return
+        // return
       })
       .then(st.end)
       .catch(st.error)
   })
 
   t.test('random()', function(st) {
-    st.plan(4)
+    st.plan(5)
     st.equal(
-      crypto.random().length,
-      32,
-      'random with length of 32')
+      crypto.random().length, 10,
+      'random with length of 10')
     st.equal(
-      crypto.random(64).length,
-      64,
-      'random with length of 64')
+      crypto.random(15).length, 15,
+      'random with length of 15')
+    st.equal(
+      crypto.random(60).length, 60,
+      'random with length of 60')
     st.throws(
       function() { crypto.random(0) },
       'random with length 0')
     st.throws(
-      function() { crypto.random(31) },
-      'random with odd length')
+      function() { crypto.random(-1) },
+      'random with length -1')
   })
 
   t.test('crypto()', function(st) {

@@ -1,3 +1,4 @@
 src
 tests
 coverage
+.travis.yml

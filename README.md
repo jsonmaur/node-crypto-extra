@@ -2,40 +2,45 @@
 [![Build Status](https://travis-ci.org/jsonmaur/node-crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/node-crypto-extra)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmaur/node-crypto-extra/badge.svg?branch=master)](https://coveralls.io/github/jsonmaur/node-crypto-extra?branch=master)
 
-Adds a few convenience methods to the native Node.js module `crypto`. It is a drop in replacement for [crypto](https://nodejs.org/api/crypto.html), meaning it extends the original functionality with the extra methods on top.
+> Adds convenience methods to the native Node.js [crypto module](https://nodejs.org/api/crypto.html). It is a drop in replacement, meaning it extends the original functionality with additional methods.
+
+- [Getting Started](#getting-started)
+- [API](#api)
+  - [encrypt](#encrypt)
+  - [decrypt](#decrypt)
+  - [hash](#hash)
+  - [bcrypt](#bcrypt)
+  - [random](#random)
+  - [all other native crypto methods](https://nodejs.org/api/crypto.html)
+- [Testing and Contributing](#testing)
 
 ## Why?
 
-The native `crypto` module requires a lot of boilerplate to do things such as hashing and encryption. This takes care of the boilerplate allowing cleaner code.
+The native `crypto` module requires a lot of boilerplate to do things such as hashing and encryption. This takes care of the boilerplate allowing much cleaner code.
 
+<a name="getting-started"></a>
 ## Getting Started
 
 ```bash
-npm install -g crypto-extra
+npm install crypto-extra -g
 ```
 
 To use in your project, simply require into your project as you would the `crypto` module, and go crazy!
 
 ```javascript
+/* with ES5 */
 var crypto = require('crypto-extra')
-
-// also supports ES6 modules
+/* with ES6 */
 import crypto from 'crypto-extra'
-// and destructuring
+/* with ES6 destructuring */
 import { hash, random } from 'crypto-extra'
 ```
 
+<a name="api"></a>
 ## API
 
-- [encrypt](#encrypt)
-- [decrypt](#decrypt)
-- [hash](#hash)
-- [bcrypt](#bcrypt)
-- [random](#random)
-- [all other native crypto methods](https://nodejs.org/api/crypto.html)
-
-<a name="encrypt"></a>
-### encrypt (value, [secretKey])
+<a name="api-encrypt"></a>
+#### .encrypt(value, [secretKey])
 
 Encrypts a value using AES256-CTR.
 
@@ -43,12 +48,15 @@ Encrypts a value using AES256-CTR.
 - `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`, and will throw an error if a secret key isn't provided or is not an environment variable.
 
 ```javascript
-var encrypted = crypto.encrypt('my-message', 'secret-key') // encrypt a string
-var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key') // encrypt an object
+/* encrypt a string */
+var encrypted = crypto.encrypt('my-message', 'secret-key')
+
+/* encrypt an object */
+var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key')
 ```
 
-<a name="decrypt"></a>
-### decrypt (value, [secretKey])
+<a name="api-decrypt"></a>
+#### .decrypt(value, [secretKey])
 
 Decrypts a value that was encrypted using AES256-CTR.
 
@@ -59,8 +67,8 @@ Decrypts a value that was encrypted using AES256-CTR.
 var decrypted = crypto.decrypt('af1ed6d214', 'secret-key')
 ```
 
-<a name="hash"></a>
-### hash (value, [options])
+<a name="api-hash"></a>
+#### .hash(value, [options])
 
 Hashes a string with the provided algorithm.
 
@@ -75,8 +83,8 @@ var hashed = crypto.hash('my-message', { salt: 'this-is-a-salt' }) // SHA256 wit
 var hashed = crypto.hash('my-message', { algorithm: 'MD5' }) // MD5
 ```
 
-<a name="bcrypt"></a>
-### bcrypt (value, [hashToCompare])
+<a name="api-bcrypt"></a>
+#### .bcrypt(value, [hashToCompare])
 
 Returns a promise with the hash. If comparing a string to a hash, it will return a boolean.
 
@@ -87,30 +95,42 @@ Returns a promise with the hash. If comparing a string to a hash, it will return
 /* to hash */
 crypto.bcrypt('my-password')
   .then(function(hash) {
-    /* store hash in db */
+    /* do what you will with the hash */
   })
 
 /* to validate a hash */
 var hash = '$2a$10$4aIbKI4tBwDxoHeLMsuPseVsLyIL/PgDgVz2K5MwyM9jWbjYDbAZW'
 crypto.bcrypt('my-password', hash)
   .then(function(isValid) {
-    /* make sure password is valid */
+    /* isValid will be true or false */
   })
 ```
 
-<a name="random"></a>
-### random (length)
+<a name="api-random"></a>
+#### .random(length)
 
 Returns a random string of any defined length.
 
-- `length` [default: `32`] The length of the string you want. Must be an even number above 0.
+- `length` [default: `10`] The length of the string you want. Must be an integer above 0.
 
 ```javascript
-var randomString = crypto.random() // length of 32
-var randomString = crypto.random(64) // length of 64
+/* random string with default length (10) */
+var randomString = crypto.random()
+
+/* with length of 20 */
+var randomString = crypto.random(20)
 ```
 
-## Contributing & Testing
-`crypto-extra` is built with ES2015 features, so Babel compilation is necesary. Run `npm run build` to compile.
+<a name="testing"></a>
+## Testing and Contributing
+```bash
+git clone https://github.com/jsonmaur/node-crypto-extra.git
+cd node-crypto-extra
+npm install
+npm test
+```
 
-To run tests, make sure you install dependencies with `npm install`, then just run `npm test`.
+`crypto-extra` is built with ES2015 features, so Babel compilation is necessary. Run `npm run build` to transpile.
+
+
+If you want to contribute or come across an issue that you know how to fix, [just do it](https://www.youtube.com/watch?v=ZXsQAXx_ao0).
