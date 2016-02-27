@@ -6,11 +6,11 @@
 
 - [Getting Started](#getting-started)
 - [API](#api)
-  - [encrypt](#encrypt)
-  - [decrypt](#decrypt)
-  - [hash](#hash)
-  - [bcrypt](#bcrypt)
-  - [random](#random)
+  - [encrypt](#api-encrypt)
+  - [decrypt](#api-decrypt)
+  - [hash](#api-hash)
+  - [bcrypt](#api-bcrypt)
+  - [random](#api-random)
   - [all other native crypto methods](https://nodejs.org/api/crypto.html)
 - [Testing and Contributing](#testing)
 
