@@ -7,9 +7,9 @@ import * as random from './random'
 module.exports = Object.assign(crypto, {
   encrypt: encryption.encrypt,
   decrypt: encryption.decrypt,
-  getHash: hash.getHash,
-  getChecksum: hash.getChecksum,
-  getChecksumSync: hash.getChecksumSync,
+  hash: hash.hash,
+  checksum: hash.checksum,
+  checksumSync: hash.checksumSync,
   // bcrypt: bcryptjs.bcrypt, // see deprecation method below
   bcryptSync: bcryptjs.bcryptSync,
   bcryptCompare: bcryptjs.bcryptCompare,
@@ -22,11 +22,6 @@ module.exports = Object.assign(crypto, {
   random (size) {
     deprecationNotice('random', 'randomString')
     return random.randomString(size)
-  },
-
-  hash (value, options) {
-    deprecationNotice('hash', 'getHash')
-    return hash.getHash(value, options)
   },
 
   bcrypt (value, options) {

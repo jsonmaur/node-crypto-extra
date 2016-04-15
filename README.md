@@ -8,8 +8,8 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
 - [API](#api)
   - [encrypt](#api-encrypt)
   - [decrypt](#api-decrypt)
-  - [getHash](#api-hash)
-  - [getChecksum](#api-checksum)
+  - [hash](#api-hash)
+  - [checksum](#api-checksum)
   - [bcrypt](#api-bcrypt)
   - [bcryptCompare](#api-bcrypt-compare)
   - [randomString](#api-random-string)
@@ -69,7 +69,7 @@ Decrypts a value using AES-256-CTR.
   > Default: `process.env.ENCRYPTION_KEY`
 
 <a name="api-hash"></a>
-### .getHash (value, options)
+### .hash (value, options)
 
 Hashes a string with the provided algorithm.
 
@@ -88,11 +88,11 @@ Hashes a string with the provided algorithm.
     > Default: `SHA1`
 
 <a name="api-checksum"></a>
-### .getChecksum (filepath, options)
+### .checksum (filepath, options)
 
 Gets the checksum hash of a file. Returns a promise resolving with the sum.
 
-*Can also be called with `.getChecksumSync()` for a synchronous version.*
+*Can also be called with `.checksumSync()` for a synchronous version.*
 
 - **filepath** - The path of the file you want a checksum for. This will be relative to the current working directory if not an absolute path.
 

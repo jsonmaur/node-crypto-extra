@@ -9,6 +9,5 @@ test((t) => {
 
 test('deprecations', (t) => {
   t.regex(logWatch(crypto.random, 10)[0], /deprecated/)
-  t.regex(logWatch(crypto.hash, 'hi')[0], /deprecated/)
   t.regex(logWatch(crypto.bcrypt, 'hi', 'hey')[0], /deprecated/)
 })

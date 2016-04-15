@@ -7,7 +7,7 @@ import { stringify } from './utils'
  * @param {string} value - The value to hash
  * @return {string} The resulting hash
  */
-export function getHash (value, options = {}) {
+export function hash (value, options = {}) {
   if (value === undefined) {
     throw new Error('cannot hash an undefined value')
   }
@@ -26,7 +26,7 @@ export function getHash (value, options = {}) {
  * @param {string} file - The path of the file to hash
  * @return {string} The checksum hash
  */
-export async function getChecksum (file, options = {}) {
+export async function checksum (file, options = {}) {
   if (!await fs.exists(file)) {
     throw new Error(`${file} does not exist`)
   }
@@ -44,11 +44,11 @@ export async function getChecksum (file, options = {}) {
   })
 }
 
-export function getChecksumSync (file, options = {}) {
+export function checksumSync (file, options = {}) {
   if (!fs.existsSync(file)) {
     throw new Error(`${file} does not exist`)
   }
 
   const contents = fs.readFileSync(file, 'utf8')
-  return getHash(contents, options)
+  return hash(contents, options)
 }
