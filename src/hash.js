@@ -24,7 +24,7 @@ export function hash (value, options = {}) {
 /**
  * Gets the checksum of a file.
  * @param {string} file - The path of the file to hash
- * @return {string} The checksum hash
+ * @return {promise} A promise resolving with the checksum hash
  */
 export async function checksum (file, options = {}) {
   if (!await fs.exists(file)) {

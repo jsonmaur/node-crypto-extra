@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs'
 /**
  * Gets the bcrypt hash of a value.
  * @param {string} value - The value to hash
- * @return {string} The bcrypt hash
+ * @return {promise} A promise resolving with the hash
  */
 export function bcrypt (value, options = {}) {
   if (!value || typeof value !== 'string') {
@@ -37,7 +37,7 @@ export function bcryptSync (value, options = {}) {
  * Checks if a value is valid compared to a bcrypt hash.
  * @param {string} value - The value to compare
  * @param {string} hash - The bcrypted hash
- * @return {boolean} Whether the value is valid
+ * @return {promise} A promise resolving with a boolean
  */
 export function bcryptCompare (value, hash = '') {
   if (!value || typeof value !== 'string') {

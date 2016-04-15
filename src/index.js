@@ -26,7 +26,7 @@ module.exports = Object.assign(crypto, {
 
   bcrypt (value, options) {
     if (typeof options === 'string') {
-      deprecationNotice('bcryptCompare')
+      deprecationNotice(null, 'bcryptCompare')
       return bcryptjs.bcryptCompare(value, options)
     }
 
@@ -35,7 +35,8 @@ module.exports = Object.assign(crypto, {
 })
 
 function deprecationNotice (oldName, newName) {
-  const first = oldName ? `${oldName}() is now deprecated!` : null
-  const second = newName ? `use ${newName}() instead.` : null
+  const first = oldName ? `${oldName}() is now deprecated.` : ''
+  const second = newName ? `use ${newName}() instead.` : ''
+
   console.log(`crypto-extra: ${first} ${second}`)
 }
