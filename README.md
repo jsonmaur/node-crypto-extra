@@ -14,8 +14,7 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
   - [bcryptCompare](#api-bcrypt-compare)
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
-  - [crypto methods](https://nodejs.org/api/crypto.html)
-- [Testing and Contributing](#testing)
+  - [native crypto methods](https://nodejs.org/api/crypto.html)
 
 ## Why?
 
