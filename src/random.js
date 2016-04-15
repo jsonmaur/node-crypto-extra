@@ -31,7 +31,7 @@ export function randomString (size = 10, charset) {
  * @param {object} options - The min and max values
  */
 export function randomNumber (options = {}) {
-  const integerLimit = 9007199254740991
+  const integerLimit = Number.MAX_SAFE_INTEGER
 
   options.min = options.min || 0
   options.max = options.max || integerLimit

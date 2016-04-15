@@ -18,7 +18,7 @@ test('randomNumber()', (t) => {
   t.is(typeof randomNumber(), 'number')
   t.is(typeof randomNumber({ length: 10 }), 'string')
   t.is(randomNumber({ length: 20 }).length, 20)
-  t.throws(() => randomNumber({ max: 9007199254740992 }))
+  t.throws(() => randomNumber({ max: Number.MAX_SAFE_INTEGER + 1 }))
   t.throws(() => randomNumber({ min: -1 }))
   t.throws(() => randomNumber({ max: -1 }))
 
