@@ -58,6 +58,29 @@
     "bcryptjs": "2.3.0",
     "fs-promise": "0.5.0"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      [
+        "transform-runtime",
+        {
+          "polyfill": false,
+          "regenerator": true
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "zab",
+    "rules": {
+      "arrow-parens": [
+        0
+      ]
+    }
+  },
   "ava": {
     "require": [
       "babel-register"

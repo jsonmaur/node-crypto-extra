@@ -1,6 +1,0 @@
-{
-  "extends": "zab",
-  "rules": {
-    "arrow-parens": [0]
-  }
-}
