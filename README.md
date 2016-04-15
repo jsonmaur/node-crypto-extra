@@ -15,6 +15,7 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
   - [native crypto methods](https://nodejs.org/api/crypto.html)
+- [Contributing](#contributing)
 
 ## Why?
 
@@ -169,3 +170,8 @@ Returns a random string of a defined length or within a defined span.
   - **length** - The number of digits in the number to return (this will return a string rather than an integer).
 
     > Type: `integer`  
+
+<a name="contributing"></a>
+## Contributing
+
+Have an idea for a useful method? Come across an issue? Pull requests are better than issues. [Just do it](https://www.youtube.com/watch?v=ZXsQAXx_ao0).
