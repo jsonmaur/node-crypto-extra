@@ -7,7 +7,8 @@ test((t) => {
   t.is(typeof crypto.randomString, 'function')
 })
 
-test('deprications', (t) => {
-  t.regex(logWatch(crypto.random, 10)[0], /depricated/)
-  t.regex(logWatch(crypto.hash, 'hi')[0], /depricated/)
+test('deprecations', (t) => {
+  t.regex(logWatch(crypto.random, 10)[0], /deprecated/)
+  t.regex(logWatch(crypto.hash, 'hi')[0], /deprecated/)
+  t.regex(logWatch(crypto.bcrypt, 'hi', 'hey')[0], /deprecated/)
 })

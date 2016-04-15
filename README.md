@@ -2,17 +2,18 @@
 [![Build Status](https://travis-ci.org/jsonmaur/node-crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/node-crypto-extra)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmaur/node-crypto-extra/badge.svg?branch=master)](https://coveralls.io/github/jsonmaur/node-crypto-extra?branch=master)
 
-> Adds convenience methods to the native Node.js [crypto module](https://nodejs.org/api/crypto.html). It is a drop in replacement, and extends the original module functionality.
+Adds convenience methods to the native Node.js [crypto module](https://nodejs.org/api/crypto.html). It is a drop in replacement, and extends the original module functionality.
 
 - [Getting Started](#getting-started)
 - [API](#api)
   - [encrypt](#api-encrypt)
   - [decrypt](#api-decrypt)
   - [getHash](#api-hash)
+  - [getChecksum](#api-checksum)
   - [bcrypt](#api-bcrypt)
+  - [bcryptCompare](#api-bcrypt-compare)
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
-  - [randomFromArray](#api-random-array)
   - [crypto methods](https://nodejs.org/api/crypto.html)
 - [Testing and Contributing](#testing)
 
@@ -82,8 +83,8 @@ Hashes a string with the provided algorithm.
 <a name="api-checksum"></a>
 ### .getChecksum (filepath, options)
 
-Gets the checksum hash of a file.
-*This can also be called with `.getChecksumSync()` for a synchronous version.*
+Gets the checksum hash of a file. Returns a promise resolving with the sum.
+*Can also be called with `.getChecksumSync()` for a synchronous version.*
 
 - **filepath** - The path of the file you want a checksum for. This will be relative to the current working directory.
 > Type: `string`  
@@ -93,15 +94,31 @@ Gets the checksum hash of a file.
   > Type: `string`  
   > Default: `SHA1`
 
-
-
 <a name="api-bcrypt"></a>
-### .bcrypt (value, [hashToCompare])
+### .bcrypt (value, options)
 
-Returns a promise with the hash. If comparing a string to a hash, it will return a boolean.
+Get the bcrypt hash of a string. Returns a promise resolving with the hash.
+*Can also be called with `.bcryptSync()` for a synchronous version.*
 
-- `value` The value you want to hash with bcrypt
-- `hashToCompare` Optional value. If provided, it will attempt to validate the hash. (ex. comparing a password to a hashed value in the database).
+- **value** - The value you want to hash with bcrypt.
+> Type: `string`  
+
+- **options**
+  - **saltRounds** - The number of rounds to use for generating the salt.
+  > Type: `integer`  
+  > Default: `10`
+
+<a name="api-bcrypt-compare"></a>
+### .bcryptCompare (value, hash)
+
+Compare a value to a bcrypt hash to validate whether they're the same. Returns a promise resolving with a boolean.
+*Can also be called with `.bcryptCompareSync()` for a synchronous version.*
+
+- **value** - The value to compare to the hash.
+> Type: `string`  
+
+- **hash** - The bcrypt hash to use in the comparison.
+> Type: `string`  
 
 <a name="api-random-string"></a>
 ### .randomString (length, charset)
@@ -132,11 +149,3 @@ Returns a random string of a defined length.
 
   - **length** - The number of digits in the number to return (this will return a string rather than an integer).
   > Type: `integer`  
-
-<a name="api-random-array"></a>
-### .randomFromArray (arr)
-
-Returns a random value from an array.
-
-- **arr** - The array you want to pick a random value out of.
-> Type: `array`  

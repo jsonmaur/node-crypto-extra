@@ -48,14 +48,3 @@ export function randomNumber (options = {}) {
 
   return Math.floor(Math.random() * (options.max - options.min + 1) + options.min)
 }
-
-/**
- * Picks a random value from an array.
- * @param {array} arr - The array to pick from
- * @returns {any} The value at the chosen key
- */
-export function randomFromArray (arr) {
-  return arr[Math.floor(Math.random() * arr.length)]
-}
-
-// export function randomBoolean

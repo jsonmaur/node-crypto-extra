@@ -1,36 +1,21 @@
 import test from 'ava'
+import {
+  bcrypt, bcryptSync,
+  bcryptCompare, bcryptCompareSync,
+} from '../src'
 
-test('bcrypt()', (t) => {
-//   crypto.bcrypt('hey')
-//     .then(function(hash) {
-//       t.equal(
-//         typeof hash,
-//         'string',
-//         'should be a string')
-//       t.not(
-//         hash.indexOf('$'),
-//         -1,
-//         'should include a dollar sign')
-//     })
-//     .then(t.end)
-//     .catch(t.error)
+test('bcrypt()', async (t) => {
+  const reg = /^\$2/
+  t.regex(await bcrypt('test'), reg)
+  t.regex(bcryptSync('test'), reg)
+  await t.throws(() => bcrypt(1), TypeError)
 })
 
-// t.test('bcrypt() compare', function(st) {
-//   var hashed = '$2a$10$Y9k5MdpqPHx5ZCV7F7sq/OytrUY.uwUJURLgTiTdknJso.in/Qnr2'
-//   crypto.bcrypt('hey', hashed)
-//     .then(function(res) {
-//       st.ok(res, 'hashes match')
-//       // return
-//     })
-//     .then(function() {
-//       crypto.bcrypt('heyy', hashed)
-//       // return
-//     })
-//     .then(function(res) {
-//       st.notOk(res, 'hashes do not match')
-//       // return
-//     })
-//     .then(st.end)
-//     .catch(st.error)
-// })
+test('bcryptCompare()', async (t) => {
+  const hash = '$2a$10$q9797EeNmD5z5913sE8X0uOopk9aftTUPLqishzkeLXwTAHkoMUbW'
+  t.true(await bcryptCompare('test', hash))
+  t.false(await bcryptCompare('hi', hash))
+  t.true(bcryptCompareSync('test', hash))
+  t.false(bcryptCompareSync('hi', hash))
+  await t.throws(() => bcryptCompare(1, hash), TypeError)
+})

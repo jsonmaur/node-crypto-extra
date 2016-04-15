@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import * as encryption from './encryption'
 import * as hash from './hash'
-// import * as bcrypt from './bcrypt'
+import * as bcryptjs from './bcrypt'
 import * as random from './random'
 
 module.exports = Object.assign(crypto, {
@@ -10,24 +10,37 @@ module.exports = Object.assign(crypto, {
   getHash: hash.getHash,
   getChecksum: hash.getChecksum,
   getChecksumSync: hash.getChecksumSync,
-  // bcrypt,
+  // bcrypt: bcryptjs.bcrypt, // see deprecation method below
+  bcryptSync: bcryptjs.bcryptSync,
+  bcryptCompare: bcryptjs.bcryptCompare,
+  bcryptCompareSync: bcryptjs.bcryptCompareSync,
   randomString: random.randomString,
   randomNumber: random.randomNumber,
-  randomFromArray: random.randomFromArray,
 
-  /* depricated methods */
+  /* deprecated methods */
 
   random (size) {
-    depricationNotice('random', 'randomString')
+    deprecationNotice('random', 'randomString')
     return random.randomString(size)
   },
 
   hash (value, options) {
-    depricationNotice('hash', 'getHash')
+    deprecationNotice('hash', 'getHash')
     return hash.getHash(value, options)
+  },
+
+  bcrypt (value, options) {
+    if (typeof options === 'string') {
+      deprecationNotice('bcryptCompare')
+      return bcryptjs.bcryptCompare(value, options)
+    }
+
+    return bcryptjs.bcrypt(value, options)
   },
 })
 
-function depricationNotice (oldName, newName) {
-  console.log(`crypto-extra: ${oldName}() is now depricated! use ${newName}() instead.`)
+function deprecationNotice (oldName, newName) {
+  const first = oldName ? `${oldName}() is now deprecated!` : null
+  const second = newName ? `use ${newName}() instead.` : null
+  console.log(`crypto-extra: ${first} ${second}`)
 }

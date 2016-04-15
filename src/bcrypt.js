@@ -1,15 +1,61 @@
-// import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 
 /**
- * For hashing to bcrypt, and comparing to a hash.
- * @param {string} value The value to hash
- * @param {string} hash If provided, the hash to compare
+ * Gets the bcrypt hash of a value.
+ * @param {string} value - The value to hash
+ * @return {string} The bcrypt hash
  */
-// export function bcrypt (value, hash) {
-  // if (hash) {
-  //   return dn(bcryptjs.compare)(value, hash)
-  // }
-  //
-  // return dn(bcryptjs.genSalt)(10)
-  //   .then(salt => dn(bcryptjs.hash)(value, salt))
-// }
+export function bcrypt (value, options = {}) {
+  if (!value || typeof value !== 'string') {
+    throw new TypeError(`expected string, got ${typeof value}`)
+  }
+
+  return new Promise((resolve, reject) => {
+    bcryptjs.genSalt(options.saltRounds || 10, (err, salt) => {
+      if (err) return reject(err)
+
+      bcryptjs.hash(value, salt, (err, hash) => {
+        if (err) reject(err)
+        else resolve(hash)
+      })
+    })
+  })
+}
+
+export function bcryptSync (value, options = {}) {
+  if (!value || typeof value !== 'string') {
+    throw new TypeError(`expected string, got ${typeof value}`)
+  }
+
+  const salt = bcryptjs.genSaltSync(options.saltRounds || 10)
+  const hash = bcryptjs.hashSync(value, salt)
+
+  return hash
+}
+
+/**
+ * Checks if a value is valid compared to a bcrypt hash.
+ * @param {string} value - The value to compare
+ * @param {string} hash - The bcrypted hash
+ * @return {boolean} Whether the value is valid
+ */
+export function bcryptCompare (value, hash = '') {
+  if (!value || typeof value !== 'string') {
+    throw new TypeError(`expected string, got ${typeof value}`)
+  }
+
+  return new Promise((resolve, reject) => {
+    bcryptjs.compare(value, hash, (err, res) => {
+      if (err) reject(err)
+      else resolve(Boolean(res))
+    })
+  })
+}
+
+export function bcryptCompareSync (value, hash = '') {
+  if (!value || typeof value !== 'string') {
+    throw new TypeError(`expected string, got ${typeof value}`)
+  }
+
+  return Boolean(bcryptjs.compareSync(value, hash))
+}
