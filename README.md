@@ -1,136 +1,142 @@
-# Node.js crypto-extra
+# Node.js Crypto-Extra
 [![Build Status](https://travis-ci.org/jsonmaur/node-crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/node-crypto-extra)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmaur/node-crypto-extra/badge.svg?branch=master)](https://coveralls.io/github/jsonmaur/node-crypto-extra?branch=master)
 
-> Adds convenience methods to the native Node.js [crypto module](https://nodejs.org/api/crypto.html). It is a drop in replacement, meaning it extends the original functionality with additional methods.
+> Adds convenience methods to the native Node.js [crypto module](https://nodejs.org/api/crypto.html). It is a drop in replacement, and extends the original module functionality.
 
 - [Getting Started](#getting-started)
 - [API](#api)
   - [encrypt](#api-encrypt)
   - [decrypt](#api-decrypt)
-  - [hash](#api-hash)
+  - [getHash](#api-hash)
   - [bcrypt](#api-bcrypt)
-  - [random](#api-random)
-  - [all other native crypto methods](https://nodejs.org/api/crypto.html)
+  - [randomString](#api-random-string)
+  - [randomNumber](#api-random-number)
+  - [randomFromArray](#api-random-array)
+  - [crypto methods](https://nodejs.org/api/crypto.html)
 - [Testing and Contributing](#testing)
 
 ## Why?
 
-The native `crypto` module requires a lot of boilerplate to do things such as hashing and encryption. This takes care of the boilerplate allowing much cleaner code.
+The native `crypto` module can be a pain to work with, and requires a lot of boilerplate to do things such as randomizing and encryption. This abstracts all of that.
 
 <a name="getting-started"></a>
 ## Getting Started
 
 ```bash
-npm install crypto-extra -g
+npm install crypto-extra --save
 ```
 
-To use in your project, simply require into your project as you would the `crypto` module, and go crazy!
+To use in your project, simply require into your project as you would the `crypto` module.
 
 ```javascript
-/* with ES5 */
 var crypto = require('crypto-extra')
-/* with ES6 */
+
+/* or with ES2015 */
 import crypto from 'crypto-extra'
-/* with ES6 destructuring */
-import { hash, random } from 'crypto-extra'
 ```
 
 <a name="api"></a>
 ## API
 
 <a name="api-encrypt"></a>
-#### .encrypt(value, [secretKey])
+### .encrypt (value, secretKey)
 
-Encrypts a value using AES256-CTR.
+Encrypts a value with a secret key using AES-256-CTR.
 
-- `value` The value you want to encrypt. Supports strings, numbers, and objects.
-- `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`, and will throw an error if a secret key isn't provided or is not an environment variable.
+- **value** - The value you want to encrypt. Everything (except objects) is converted to a string before encryption for consistency. Objects are stringified using `JSON.stringify`.
+> Type: `any`  
 
-```javascript
-/* encrypt a string */
-var encrypted = crypto.encrypt('my-message', 'secret-key')
-
-/* encrypt an object */
-var encrypted = crypto.encrypt({foo: 'bar'}, 'secret-key')
-```
+- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to an environment variable.
+> Type: `string`  
+> Default: `process.env.ENCRYPTION_KEY`
 
 <a name="api-decrypt"></a>
-#### .decrypt(value, [secretKey])
+### .decrypt (value, secretKey)
 
-Decrypts a value that was encrypted using AES256-CTR.
+Decrypts a value using AES-256-CTR.
 
-- `value` The encrypted string you want to decrypt.
-- `secretKey` Optional. The secret key used to encrypt your value. Will fallback to the environment variable `ENCRYPTION_KEY`.
+- **value** - The encrypted value you want to decrypt. Will automatically parse objects that were encrypted.
+> Type: `string`  
 
-```javascript
-var decrypted = crypto.decrypt('af1ed6d214', 'secret-key')
-```
+- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to an environment variable.
+> Type: `string`  
+> Default: `process.env.ENCRYPTION_KEY`
 
 <a name="api-hash"></a>
-#### .hash(value, [options])
+### .getHash (value, options)
 
 Hashes a string with the provided algorithm.
 
-- `value` The value you want to hash.
-- `options`
-  - `salt` Will be appended to the string before it is hashed.
-  - `algorithm` [default: `SHA256`] The hashing algorithm to use.
+- **value** - The value you want to hash. Any non-string value is converted to a string before hashing for consistency.
+> Type: `string`  
 
-```javascript
-var hashed = crypto.hash('my-message') // SHA256
-var hashed = crypto.hash('my-message', { salt: 'this-is-a-salt' }) // SHA256 with salt
-var hashed = crypto.hash('my-message', { algorithm: 'MD5' }) // MD5
-```
+- **options**
+  - **salt** - A string to be appended to the string before it is hashed.
+  > Type: `string`  
+
+  - **algorithm** - The hashing algorithm to use.
+  > Type: `string`  
+  > Default: `SHA1`
+
+<a name="api-checksum"></a>
+### .getChecksum (filepath, options)
+
+Gets the checksum hash of a file.
+*This can also be called with `.getChecksumSync()` for a synchronous version.*
+
+- **filepath** - The path of the file you want a checksum for. This will be relative to the current working directory.
+> Type: `string`  
+
+- **options**
+  - **algorithm** - The hashing algorithm to use.
+  > Type: `string`  
+  > Default: `SHA1`
+
+
 
 <a name="api-bcrypt"></a>
-#### .bcrypt(value, [hashToCompare])
+### .bcrypt (value, [hashToCompare])
 
 Returns a promise with the hash. If comparing a string to a hash, it will return a boolean.
 
 - `value` The value you want to hash with bcrypt
 - `hashToCompare` Optional value. If provided, it will attempt to validate the hash. (ex. comparing a password to a hashed value in the database).
 
-```javascript
-/* to hash */
-crypto.bcrypt('my-password')
-  .then(function(hash) {
-    /* do what you will with the hash */
-  })
+<a name="api-random-string"></a>
+### .randomString (length, charset)
 
-/* to validate a hash */
-var hash = '$2a$10$4aIbKI4tBwDxoHeLMsuPseVsLyIL/PgDgVz2K5MwyM9jWbjYDbAZW'
-crypto.bcrypt('my-password', hash)
-  .then(function(isValid) {
-    /* isValid will be true or false */
-  })
-```
+Returns a random string of a defined length.
 
-<a name="api-random"></a>
-#### .random(length)
+- **length** - Length of the random string. Must be above 0.
+> Type: `integer`  
+> Default: `10`
 
-Returns a random string of any defined length.
+- **charset** - The character set to take from.
+> Type: `string`  
+> Default: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`
 
-- `length` [default: `10`] The length of the string you want. Must be an integer above 0.
+<a name="api-random-number"></a>
+### .randomNumber (options)
 
-```javascript
-/* random string with default length (10) */
-var randomString = crypto.random()
+Returns a random string of a defined length.
 
-/* with length of 20 */
-var randomString = crypto.random(20)
-```
+- **options**
+  - **min** - Minimum number to return. Must be a positive integer.
+  > Type: `integer`  
+  > Default: `0`
 
-<a name="testing"></a>
-## Testing and Contributing
-```bash
-git clone https://github.com/jsonmaur/node-crypto-extra.git
-cd node-crypto-extra
-npm install
-npm test
-```
+  - **max** - Maximum number to return. This cannot be higher than `9007199254740991` due to Javascript integer limits (http://mzl.la/1A1nVyU). If you need a number higher than this, consider using `length` instead.
+  > Type: `integer`  
+  > Default: `9007199254740991`
 
-`crypto-extra` is built with ES2015 features, so Babel compilation is necessary. Run `npm run build` to transpile.
+  - **length** - The number of digits in the number to return (this will return a string rather than an integer).
+  > Type: `integer`  
 
+<a name="api-random-array"></a>
+### .randomFromArray (arr)
 
-If you want to contribute or come across an issue that you know how to fix, [just do it](https://www.youtube.com/watch?v=ZXsQAXx_ao0).
+Returns a random value from an array.
+
+- **arr** - The array you want to pick a random value out of.
+> Type: `array`  
