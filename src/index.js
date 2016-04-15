@@ -35,8 +35,8 @@ module.exports = Object.assign(crypto, {
 })
 
 function deprecationNotice (oldName, newName) {
-  const first = oldName ? `${oldName}() is now deprecated.` : ''
+  const first = oldName ? `${oldName}() is now deprecated. ` : ''
   const second = newName ? `use ${newName}() instead.` : ''
 
-  console.log(`crypto-extra: ${first} ${second}`)
+  console.log(`crypto-extra: ${first}${second}`)
 }

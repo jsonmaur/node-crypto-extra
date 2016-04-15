@@ -43,9 +43,9 @@ export function decrypt (value, key) {
  * @param {string} fallbackKey - The fallback key to use
  * @return {string} The encryption key
  */
-export function getEncryptionKey (fallbackKey) {
-  const key = process.env.ENCRYPTION_KEY || fallbackKey
-  if (!key) throw new Error('encryption key not found')
+export function getEncryptionKey (key) {
+  const encryptionKey = key || process.env.ENCRYPTION_KEY
+  if (!encryptionKey) throw new Error('encryption key not found')
 
-  return key
+  return encryptionKey
 }

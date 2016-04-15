@@ -34,9 +34,7 @@ export async function checksum (file, options = {}) {
   const stream = fs.createReadStream(file)
   const hash = crypto.createHash(options.algorithm || 'sha1')
 
-  stream.on('data', (data) => {
-    hash.update(data, 'utf8')
-  })
+  stream.on('data', (data) => hash.update(data, 'utf8'))
 
   return new Promise((resolve, reject) => {
     stream.on('end', () => resolve(hash.digest('hex')))
