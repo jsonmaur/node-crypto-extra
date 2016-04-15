@@ -153,7 +153,7 @@ Returns a random string of a defined length.
 <a name="api-random-number"></a>
 ### .randomNumber (options)
 
-Returns a random string of a defined length.
+Returns a random string of a defined length or within a defined span.
 
 - **options**
   - **min** - Minimum number to return. Must be a positive integer.
