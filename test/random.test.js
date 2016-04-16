@@ -2,7 +2,7 @@ import test from 'ava'
 import {
   randomString,
   randomNumber,
-} from '../src/random'
+} from '../src'
 
 test('randomString()', (t) => {
   t.is(typeof randomString(), 'string')
@@ -16,11 +16,10 @@ test('randomString()', (t) => {
 test('randomNumber()', (t) => {
   t.true(randomNumber() > 0)
   t.is(typeof randomNumber(), 'number')
-  t.is(typeof randomNumber({ length: 10 }), 'string')
-  t.is(randomNumber({ length: 20 }).length, 20)
   t.throws(() => randomNumber({ max: Number.MAX_SAFE_INTEGER + 1 }))
   t.throws(() => randomNumber({ min: -1 }))
   t.throws(() => randomNumber({ max: -1 }))
+  t.throws(() => randomNumber({ max: '100' }))
 
   const min = 100
   const max = 150

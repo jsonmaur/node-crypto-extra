@@ -16,11 +16,12 @@ module.exports = Object.assign(crypto, {
   bcryptCompare: bcryptjs.bcryptCompare,
   bcryptCompareSync: bcryptjs.bcryptCompareSync,
   randomString: random.randomString,
-  randomNumber: random.randomNumber,
+  // randomNumber: random.randomNumber, // see deprecation method below
 
   /* deprecated methods */
 
   decrypt (value, key) {
+    /* prompt for old encrypted values (before IV implementation) */
     if (typeof value === 'string' && !value.match(/\$/)) {
       deprecationNotice(null, null, 'you are using an outdated encryption value! re-encrypt this.')
       return encryption.decryptOld(value, key)
@@ -34,7 +35,18 @@ module.exports = Object.assign(crypto, {
     return random.randomString(size)
   },
 
+  randomNumber (options = {}) {
+    /* no longer allow .length option */
+    if (options.length) {
+      deprecationNotice(null, 'randomString')
+      return random.randomString(options.length, '1234567890')
+    }
+
+    return random.randomNumber(options)
+  },
+
   bcrypt (value, options) {
+    /* no longer allow combined hash/compare function */
     if (typeof options === 'string') {
       deprecationNotice(null, 'bcryptCompare')
       return bcryptjs.bcryptCompare(value, options)

@@ -72,7 +72,7 @@ Decrypts a value using AES-256.
 <a name="api-generate"></a>
 ### .generateKey ()
 
-Generates a random, 256-bit secure key that can be used as an encryption key. Returns a 64-character string.
+Generates a random 256-bit key that can be used as an encryption key. Returns a 64-character string.
 
 <a name="api-hash"></a>
 ### .hash (value, options)
@@ -160,22 +160,18 @@ Returns a random string of a defined length.
 <a name="api-random-number"></a>
 ### .randomNumber (options)
 
-Returns a random string of a defined length or within a defined range.
+Returns a random string within a defined range.
 
 - **options**
-  - **min** - Minimum number to return. Must be a positive integer.
+  - **min** - Minimum number of range. Must be a positive integer.
 
     > Type: `integer`  
     > Default: `0`
 
-  - **max** - Maximum number to return. This cannot be higher than `9007199254740991` due to Javascript integer limits (http://mzl.la/1A1nVyU). If you need a number higher than this, consider using `length` instead.
+  - **max** - Maximum number of range. This cannot be higher than `9007199254740991` due to Javascript integer limits (http://mzl.la/1A1nVyU). If you need a number higher than this, consider using [randomString](#api-random-string) with the charset `0123456789` instead.
 
     > Type: `integer`  
     > Default: `9007199254740991`
-
-  - **length** - The number of digits in the number to return (this will return a string rather than an integer).
-
-    > Type: `integer`  
 
 <a name="contributing"></a>
 ## Contributing
