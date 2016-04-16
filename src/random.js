@@ -4,7 +4,7 @@ import { randomBytes } from 'crypto'
  * Creates a random string.
  * @param {integer} size - The size of the returned string
  * @param {string} charset - The charset to pick characters from
- * @return {int} A random string
+ * @return {string} The generated string
  */
 export function randomString (size = 10, charset) {
   if (size <= 0) {
@@ -28,7 +28,7 @@ export function randomString (size = 10, charset) {
 
 /**
  * Generates a random number.
- * @param {object} options - The min and max values
+ * @return {number} The generated number
  */
 export function randomNumber (options = {}) {
   const integerLimit = Number.MAX_SAFE_INTEGER
