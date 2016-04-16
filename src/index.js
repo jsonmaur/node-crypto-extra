@@ -7,6 +7,7 @@ import * as random from './random'
 module.exports = Object.assign(crypto, {
   encrypt: encryption.encrypt,
   // decrypt: encryption.decrypt, // see deprecation method below
+  generateKey: encryption.generateKey,
   hash: hash.hash,
   checksum: hash.checksum,
   checksumSync: hash.checksumSync,

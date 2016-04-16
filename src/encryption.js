@@ -79,7 +79,7 @@ export function constantTimeCompare (val1, val2) {
   if (val1.length !== val2.length) return false
 
   for (let i = 0, len = val1.length; i < len; i++) {
-    sentinel |= val1.charCodeAt(i) ^ val2.charCodeAt(i);
+    sentinel |= val1.charCodeAt(i) ^ val2.charCodeAt(i)
   }
 
   return sentinel === 0
@@ -96,6 +96,14 @@ export function getEncryptionKey (key) {
   if (!encryptionKey) throw new Error('encryption key not found')
 
   return encryptionKey
+}
+
+/**
+ * Generates a secure 256-bit key.
+ * @return {string} The generated key
+ */
+export function generateKey () {
+  return randomBytes(32).toString('hex')
 }
 
 // -----------------------------------------------------------------------------

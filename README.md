@@ -8,6 +8,7 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
 - [API](#api)
   - [encrypt](#api-encrypt)
   - [decrypt](#api-decrypt)
+  - [generateKey](#api-generate)
   - [hash](#api-hash)
   - [checksum](#api-checksum)
   - [bcrypt](#api-bcrypt)
@@ -67,6 +68,11 @@ Decrypts a value using AES-256.
 
   > Type: `string`  
   > Default: `process.env.ENCRYPTION_KEY`
+
+<a name="api-generate"></a>
+### .generateKey ()
+
+Generates a random, 256-bit secure key that can be used as an encryption key. Returns a 64-character string.
 
 <a name="api-hash"></a>
 ### .hash (value, options)
