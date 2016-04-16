@@ -84,7 +84,7 @@ Hashes a string with the provided algorithm.
   > Type: `string`  
 
 - **options**
-  - **salt** - A string to be appended to the string before it is hashed.
+  - **salt** - A string to be appended to the value before it is hashed.
 
     > Type: `string`  
 
@@ -176,4 +176,4 @@ Returns a random string within a defined range.
 <a name="contributing"></a>
 ## Contributing
 
-Have an idea for a useful method? Come across an issue? Pull requests are better than issues. [Just do it](https://www.youtube.com/watch?v=ZXsQAXx_ao0).
+Have an idea for a useful method? Come across an issue? Submit a pull request!
