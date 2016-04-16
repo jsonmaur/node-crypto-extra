@@ -50,7 +50,7 @@ Encrypts a value with a secret key using AES-256.
 
   > Type: `any`  
 
-- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`.
+- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`. Must be at least 32 characters.
 
   > Type: `string`  
   > Default: `process.env.ENCRYPTION_KEY`
@@ -64,7 +64,7 @@ Decrypts a value using AES-256.
 
   > Type: `string`  
 
-- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`.
+- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`. Must be at least 32 characters.
 
   > Type: `string`  
   > Default: `process.env.ENCRYPTION_KEY`
