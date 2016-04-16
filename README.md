@@ -43,7 +43,7 @@ import crypto from 'crypto-extra'
 <a name="api-encrypt"></a>
 ### .encrypt (value, secretKey)
 
-Encrypts a value with a secret key using AES-256-CTR.
+Encrypts a value with a secret key using AES-256.
 
 - **value** - The value you want to encrypt. Everything (except objects) is converted to a string before encryption for consistency. Objects are stringified using `JSON.stringify`.
 
@@ -57,7 +57,7 @@ Encrypts a value with a secret key using AES-256-CTR.
 <a name="api-decrypt"></a>
 ### .decrypt (value, secretKey)
 
-Decrypts a value using AES-256-CTR.
+Decrypts a value using AES-256.
 
 - **value** - The encrypted value you want to decrypt. Will automatically parse objects that were encrypted.
 
@@ -85,7 +85,7 @@ Hashes a string with the provided algorithm.
   - **algorithm** - The hashing algorithm to use.
 
     > Type: `string`  
-    > Default: `SHA1`
+    > Default: `SHA256`
 
 <a name="api-checksum"></a>
 ### .checksum (filepath, options)
@@ -102,7 +102,7 @@ Gets the checksum hash of a file. Returns a promise resolving with the sum.
   - **algorithm** - The hashing algorithm to use.
 
     > Type: `string`  
-    > Default: `SHA1`
+    > Default: `SHA256`
 
 <a name="api-bcrypt"></a>
 ### .bcrypt (value, options)
@@ -154,7 +154,7 @@ Returns a random string of a defined length.
 <a name="api-random-number"></a>
 ### .randomNumber (options)
 
-Returns a random string of a defined length or within a defined span.
+Returns a random string of a defined length or within a defined range.
 
 - **options**
   - **min** - Minimum number to return. Must be a positive integer.

@@ -6,7 +6,7 @@ import * as random from './random'
 
 module.exports = Object.assign(crypto, {
   encrypt: encryption.encrypt,
-  decrypt: encryption.decrypt,
+  // decrypt: encryption.decrypt, // see deprecation method below
   hash: hash.hash,
   checksum: hash.checksum,
   checksumSync: hash.checksumSync,
@@ -18,6 +18,15 @@ module.exports = Object.assign(crypto, {
   randomNumber: random.randomNumber,
 
   /* deprecated methods */
+
+  decrypt (value, key) {
+    if (typeof value === 'string' && !value.match(/\$/)) {
+      deprecationNotice(null, null, 'you are using an outdated encryption value! re-encrypt this.')
+      return encryption.decryptOld(value, key)
+    }
+
+    return encryption.decrypt(value, key)
+  },
 
   random (size) {
     deprecationNotice('random', 'randomString')
@@ -34,9 +43,10 @@ module.exports = Object.assign(crypto, {
   },
 })
 
-function deprecationNotice (oldName, newName) {
+function deprecationNotice (oldName, newName, msg) {
   const first = oldName ? `${oldName}() is now deprecated. ` : ''
   const second = newName ? `use ${newName}() instead.` : ''
 
-  console.log(`crypto-extra: ${first}${second}`)
+  if (msg) console.log(`crypto-extra: ${msg}`)
+  else console.log(`crypto-extra: ${first}${second}`)
 }

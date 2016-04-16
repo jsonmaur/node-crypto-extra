@@ -14,7 +14,7 @@ export function hash (value, options = {}) {
 
   value = stringify(value)
 
-  options.algorithm = options.algorithm || 'sha1'
+  options.algorithm = options.algorithm || 'sha256'
   if (options.salt) value += options.salt
 
   const hash = crypto.createHash(options.algorithm)
@@ -32,7 +32,7 @@ export async function checksum (file, options = {}) {
   }
 
   const stream = fs.createReadStream(file)
-  const hash = crypto.createHash(options.algorithm || 'sha1')
+  const hash = crypto.createHash(options.algorithm || 'sha256')
 
   stream.on('data', (data) => hash.update(data, 'utf8'))
 
