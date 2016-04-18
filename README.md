@@ -1,4 +1,5 @@
 # Node.js Crypto-Extra
+
 [![Build Status](https://travis-ci.org/jsonmaur/node-crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/node-crypto-extra)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmaur/node-crypto-extra/badge.svg?branch=master)](https://coveralls.io/github/jsonmaur/node-crypto-extra?branch=master)
 
@@ -16,7 +17,7 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
   - [native crypto methods](https://nodejs.org/api/crypto.html)
-- [Contributing](#contributing)
+- [License](#license)
 
 ## Why?
 
@@ -173,7 +174,7 @@ Returns a random string within a defined range.
     > Type: `integer`  
     > Default: `9007199254740991`
 
-<a name="contributing"></a>
-## Contributing
+<a name="license"></a>
+## License
 
-Have an idea for a useful method? Come across an issue? Submit a pull request!
+[MIT](LICENSE) © [Jason Maurer](http://maur.co)

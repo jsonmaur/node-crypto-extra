@@ -15,7 +15,7 @@ test('encrypt()', (t) => {
   t.is(decrypt(encrypt('hey', secretKey), secretKey), 'hey')
   t.is(typeof encrypt('hey', secretKey), 'string')
   t.is(typeof encrypt(100, secretKey), 'string')
-  t.is(typeof encrypt({hello: 'hey'}, secretKey), 'string')
+  t.is(typeof encrypt({ hello: 'hey' }, secretKey), 'string')
   t.is(typeof encrypt(true, secretKey), 'string')
   t.throws(() => encrypt('hey'), Error)
   t.throws(() => encrypt('hey', 'short-secret-key'), Error)
