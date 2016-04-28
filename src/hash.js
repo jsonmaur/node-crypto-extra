@@ -15,10 +15,16 @@ export function hash (value, options = {}) {
   value = stringify(value)
 
   options.algorithm = options.algorithm || 'sha256'
+  options.rounds = parseInt(options.rounds, 10) || 1
   if (options.salt) value += options.salt
 
-  const hash = crypto.createHash(options.algorithm)
-  return hash.update(value, 'utf8').digest('hex')
+  let hash = value
+  for (let i = 0; i < options.rounds; i++) {
+    hash = crypto.createHash(options.algorithm)
+      .update(hash, 'utf8').digest('hex')
+  }
+
+  return hash
 }
 
 /**

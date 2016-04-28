@@ -85,6 +85,11 @@ Hashes a string with the provided algorithm.
   > Type: `string`  
 
 - **options**
+  - **rounds** - The number of rounds to use when hashing.
+
+    > Type: `integer`  
+    > Default: `1`
+    
   - **salt** - A string to be appended to the value before it is hashed.
 
     > Type: `string`  
