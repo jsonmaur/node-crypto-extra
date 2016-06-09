@@ -1,8 +1,8 @@
-import crypto from 'crypto'
-import * as encryption from './encryption'
-import * as hash from './hash'
-import * as bcryptjs from './bcrypt'
-import * as random from './random'
+const crypto = require('crypto')
+const encryption = require('./encryption')
+const hash = require('./hash')
+const bcryptjs = require('./bcrypt')
+const random = require('./random')
 
 module.exports = Object.assign(crypto, {
   encrypt: encryption.encrypt,

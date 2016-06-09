@@ -1,13 +1,19 @@
-import crypto from 'crypto'
-import fs from 'fs-promise'
-import { stringify } from './utils'
+const fs = require('fs')
+const crypto = require('crypto')
+const { stringify } = require('./utils')
+
+module.exports = {
+  hash,
+  checksum,
+  checksumSync,
+}
 
 /**
  * Gets the hash a value.
  * @param {string} value - The value to hash
  * @return {string} The resulting hash
  */
-export function hash (value, options = {}) {
+function hash (value, options = {}) {
   if (value === undefined) {
     throw new Error('cannot hash an undefined value')
   }
@@ -32,23 +38,23 @@ export function hash (value, options = {}) {
  * @param {string} file - The path of the file to hash
  * @return {promise} A promise resolving with the checksum hash
  */
-export async function checksum (file, options = {}) {
-  if (!await fs.exists(file)) {
-    throw new Error(`${file} does not exist`)
-  }
-
-  const stream = fs.createReadStream(file)
-  const hash = crypto.createHash(options.algorithm || 'sha256')
-
-  stream.on('data', (data) => hash.update(data, 'utf8'))
-
+function checksum (file, options = {}) {
   return new Promise((resolve, reject) => {
-    stream.on('end', () => resolve(hash.digest('hex')))
-    stream.on('error', reject)
+    fs.exists(file, (err, exists) => {
+      if (err) throw err
+      else if (!exists) throw new Error(`${file} does not exist`)
+
+      const stream = fs.createReadStream(file)
+      const hash = crypto.createHash(options.algorithm || 'sha256')
+
+      stream.on('error', reject)
+      stream.on('data', (data) => hash.update(data, 'utf8'))
+      stream.on('end', () => resolve(hash.digest('hex')))
+    })
   })
 }
 
-export function checksumSync (file, options = {}) {
+function checksumSync (file, options = {}) {
   if (!fs.existsSync(file)) {
     throw new Error(`${file} does not exist`)
   }

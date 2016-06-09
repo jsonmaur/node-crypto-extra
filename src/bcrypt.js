@@ -1,11 +1,18 @@
-import bcryptjs from 'bcryptjs'
+const bcryptjs = require('bcryptjs')
+
+module.exports = {
+  bcrypt,
+  bcryptSync,
+  bcryptCompare,
+  bcryptCompareSync,
+}
 
 /**
  * Gets the bcrypt hash of a value.
  * @param {string} value - The value to hash
  * @return {promise} A promise resolving with the hash
  */
-export function bcrypt (value, options = {}) {
+function bcrypt (value, options = {}) {
   if (!value || typeof value !== 'string') {
     throw new TypeError(`expected string, got ${typeof value}`)
   }
@@ -22,7 +29,7 @@ export function bcrypt (value, options = {}) {
   })
 }
 
-export function bcryptSync (value, options = {}) {
+function bcryptSync (value, options = {}) {
   if (!value || typeof value !== 'string') {
     throw new TypeError(`expected string, got ${typeof value}`)
   }
@@ -39,7 +46,7 @@ export function bcryptSync (value, options = {}) {
  * @param {string} hash - The bcrypted hash
  * @return {promise} A promise resolving with a boolean
  */
-export function bcryptCompare (value, hash = '') {
+function bcryptCompare (value, hash = '') {
   if (!value || typeof value !== 'string') {
     throw new TypeError(`expected string, got ${typeof value}`)
   }
@@ -52,7 +59,7 @@ export function bcryptCompare (value, hash = '') {
   })
 }
 
-export function bcryptCompareSync (value, hash = '') {
+function bcryptCompareSync (value, hash = '') {
   if (!value || typeof value !== 'string') {
     throw new TypeError(`expected string, got ${typeof value}`)
   }
