@@ -30,7 +30,8 @@
     "extra"
   ],
   "files": [
-    "lib/",
+    "src/",
+    "LICENSE",
     "README.md"
   ],
   "main": "src/index.js",
