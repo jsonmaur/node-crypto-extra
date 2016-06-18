@@ -44,13 +44,13 @@ import crypto from 'crypto-extra'
 <a name="api-encrypt"></a>
 ### .encrypt (value, secretKey)
 
-Encrypts a value with a secret key using AES-256.
+Encrypts a value with a secret key using AES-256-CTR.
 
 - **value** - The value you want to encrypt. Everything (except objects) is converted to a string before encryption for consistency. Objects are stringified using `JSON.stringify`.
 
   > Type: `any`  
 
-- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`. Must be at least 32 characters.
+- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`.
 
   > Type: `string`  
   > Default: `process.env.ENCRYPTION_KEY`
@@ -58,13 +58,13 @@ Encrypts a value with a secret key using AES-256.
 <a name="api-decrypt"></a>
 ### .decrypt (value, secretKey)
 
-Decrypts a value using AES-256.
+Decrypts a value using AES-256-CTR.
 
 - **value** - The encrypted value you want to decrypt. Will automatically parse objects that were encrypted.
 
   > Type: `string`  
 
-- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`. Must be at least 32 characters.
+- **secretKey** - The key used in the encryption. If not supplied, the lib will fallback to the environment variable `ENCRYPTION_KEY`.
 
   > Type: `string`  
   > Default: `process.env.ENCRYPTION_KEY`
@@ -72,7 +72,7 @@ Decrypts a value using AES-256.
 <a name="api-generate"></a>
 ### .generateKey (length)
 
-Generates a random 256-bit key that can be used as an encryption key. Returns a 64-character string.
+Generates a random 256-bit key that can be used as an encryption key.
 
 - **length** - The length of the key you want to generate. **Must be an even number.**
 

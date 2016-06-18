@@ -19,10 +19,6 @@ const HMAC_ALGORITHM = 'sha256'
 export function encrypt (value, key) {
   key = new Buffer(getEncryptionKey(key))
 
-  if (key.length < 32) {
-    throw new Error('secret key must be at least 32 characters!')
-  }
-
   const iv = new Buffer(crypto.randomBytes(16))
 
   const cipher = crypto.createCipheriv(ALGORITHM, key, iv)
@@ -50,9 +46,6 @@ export function decrypt (value, key) {
   }
 
   key = new Buffer(getEncryptionKey(key))
-  if (key.length < 32) {
-    throw new Error('secret key must be at least 32 characters!')
-  }
 
   const cipher = value.split('$')
   const iv = new Buffer(cipher[1], 'hex')
@@ -106,14 +99,16 @@ function constantTimeCompare (val1, val2) {
 }
 
 /**
- * Gets the encryption key from the environment
- * if it exists, with a fallback key.
- * @param {string} fallbackKey - The fallback key to use
+ * Gets the encryption key from the environment,
+ * and hash with SHA256 (ensures length). Falls back
+ * to the environment variable if no key is specified.
+ * @param {string} key - The key to use
  * @return {string} The encryption key
  */
 function getEncryptionKey (key) {
-  const encryptionKey = key || process.env.ENCRYPTION_KEY
-  if (!encryptionKey) throw new Error('encryption key not found')
+  key = key || process.env.ENCRYPTION_KEY
+  if (!key) throw new Error('encryption key not found')
 
-  return encryptionKey
+  const cryptoKey = crypto.createHash('sha256').update(key).digest()
+  return cryptoKey
 }
