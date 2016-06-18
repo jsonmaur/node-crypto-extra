@@ -1,12 +1,6 @@
 import crypto from 'crypto'
 import { parseObject, stringify } from './utils'
 
-module.exports = {
-  encrypt,
-  decrypt,
-  generateKey,
-}
-
 const ALGORITHM = 'aes-256-ctr'
 const HMAC_ALGORITHM = 'sha256'
 
