@@ -1,6 +1,6 @@
-const sinon = require('sinon')
+import sinon from 'sinon'
 
-exports.logWatch = (func, ...args) => {
+export function logWatch (func, ...args) {
   const spy = sinon.spy()
   const origLog = console.log
   console.log = spy

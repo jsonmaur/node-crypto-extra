@@ -1,9 +1,4 @@
-const { randomBytes } = require('crypto')
-
-module.exports = {
-  randomString,
-  randomNumber,
-}
+import { randomBytes } from 'crypto'
 
 /**
  * Creates a random string.
@@ -11,7 +6,7 @@ module.exports = {
  * @param {string} charset - The charset to pick characters from
  * @return {string} The generated string
  */
-function randomString (size = 10, charset) {
+export function randomString (size = 10, charset) {
   if (size <= 0) {
     throw new Error('random size must be above 0!')
   }
@@ -35,7 +30,7 @@ function randomString (size = 10, charset) {
  * Generates a random number.
  * @return {number} The generated number
  */
-function randomNumber (options = {}) {
+export function randomNumber (options = {}) {
   const integerLimit = Number.MAX_SAFE_INTEGER
 
   options.min = options.min || 0

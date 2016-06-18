@@ -1,13 +1,10 @@
-const crypto = require('crypto')
-const { parseObject, stringify } = require('./utils')
+import crypto from 'crypto'
+import { parseObject, stringify } from './utils'
 
 module.exports = {
   encrypt,
   decrypt,
-  constantTimeCompare,
-  getEncryptionKey,
   generateKey,
-  decryptOld,
 }
 
 const ALGORITHM = 'aes-256-ctr'
@@ -19,7 +16,7 @@ const HMAC_ALGORITHM = 'sha256'
  * @param {string} key - The secret encryption key
  * @return {string} The encrypted value
  */
-function encrypt (value, key) {
+export function encrypt (value, key) {
   key = new Buffer(getEncryptionKey(key))
 
   if (key.length < 32) {
@@ -47,7 +44,7 @@ function encrypt (value, key) {
  * @param {string} value - The encrypted string to decrypt
  * @param {string} key - The secret encryption key
  */
-function decrypt (value, key) {
+export function decrypt (value, key) {
   if (typeof value !== 'string') {
     throw new TypeError(`expected a string, got ${typeof value}`)
   }
@@ -74,6 +71,20 @@ function decrypt (value, key) {
   const final = decryptedText + decipher.final('utf8')
 
   return parseObject(final) || final
+}
+
+/**
+ * Generates a secure 256-bit key.
+ * @return {string} The generated key
+ */
+export function generateKey (length = 64) {
+  length = parseInt(length, 10)
+
+  if (length < 2 || length % 2 !== 0) {
+    throw new Error('length must be an even number above 0!')
+  }
+
+  return crypto.randomBytes(length / 2).toString('hex')
 }
 
 /**
@@ -105,30 +116,4 @@ function getEncryptionKey (key) {
   if (!encryptionKey) throw new Error('encryption key not found')
 
   return encryptionKey
-}
-
-/**
- * Generates a secure 256-bit key.
- * @return {string} The generated key
- */
-function generateKey () {
-  return crypto.randomBytes(32).toString('hex')
-}
-
-// -----------------------------------------------------------------------------
-// deprecated
-// -----------------------------------------------------------------------------
-
-function decryptOld (value, key) {
-  if (typeof value !== 'string') {
-    throw new TypeError(`expected a string, got ${typeof value}`)
-  }
-
-  key = getEncryptionKey(key)
-
-  const decipher = crypto.createDecipher('aes-256-ctr', key)
-  const decrypted = decipher.update(value, 'hex', 'utf8')
-  const final = decrypted + decipher.final('utf8')
-
-  return parseObject(final) || final
 }

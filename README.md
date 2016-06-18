@@ -11,8 +11,7 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
   - [decrypt](#api-decrypt)
   - [generateKey](#api-generate)
   - [hash](#api-hash)
-  - [checksum](#api-checksum)
-  - [bcrypt](#api-bcrypt)
+  - [bcryptHash](#api-bcrypt-hash)
   - [bcryptCompare](#api-bcrypt-compare)
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
@@ -71,9 +70,14 @@ Decrypts a value using AES-256.
   > Default: `process.env.ENCRYPTION_KEY`
 
 <a name="api-generate"></a>
-### .generateKey ()
+### .generateKey (length)
 
 Generates a random 256-bit key that can be used as an encryption key. Returns a 64-character string.
+
+- **length** - The length of the key you want to generate. **Must be an even number.**
+
+  > Type: `number`  
+  > Default: `32`
 
 <a name="api-hash"></a>
 ### .hash (value, options)
@@ -89,7 +93,7 @@ Hashes a string with the provided algorithm.
 
     > Type: `integer`  
     > Default: `1`
-    
+
   - **salt** - A string to be appended to the value before it is hashed.
 
     > Type: `string`  
@@ -99,29 +103,10 @@ Hashes a string with the provided algorithm.
     > Type: `string`  
     > Default: `SHA256`
 
-<a name="api-checksum"></a>
-### .checksum (filepath, options)
-
-Gets the checksum hash of a file. Returns a promise resolving with the sum.
-
-*Can also be called with `.checksumSync()` for a synchronous version.*
-
-- **filepath** - The path of the file you want a checksum for. This will be relative to the current working directory if not an absolute path.
-
-  > Type: `string`  
-
-- **options**
-  - **algorithm** - The hashing algorithm to use.
-
-    > Type: `string`  
-    > Default: `SHA256`
-
-<a name="api-bcrypt"></a>
-### .bcrypt (value, options)
+<a name="api-bcrypt-hash"></a>
+### .bcryptHash (value, options)
 
 Get the bcrypt hash of a string. Returns a promise resolving with the hash.
-
-*Can also be called with `.bcryptSync()` for a synchronous version.*
 
 - **value** - The value you want to hash with bcrypt.
 
@@ -137,8 +122,6 @@ Get the bcrypt hash of a string. Returns a promise resolving with the hash.
 ### .bcryptCompare (value, hash)
 
 Compare a value to a bcrypt hash to validate whether they're the same. Returns a promise resolving with a boolean.
-
-*Can also be called with `.bcryptCompareSync()` for a synchronous version.*
 
 - **value** - The value to compare to the hash.
 

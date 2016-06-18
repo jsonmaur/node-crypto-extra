@@ -1,16 +1,16 @@
 import test from 'ava'
-import * as utils from '../src/utils'
+import { parseObject, stringify } from '../src/utils'
 
 test('parseObject()', (t) => {
   const obj = { test: 'testing' }
   const objStr = '{ "test": "testing" }'
-  t.deepEqual(utils.parseObject(obj), obj)
-  t.deepEqual(utils.parseObject(objStr), obj)
-  t.false(utils.parseObject('hi'))
+  t.deepEqual(parseObject(obj), obj)
+  t.deepEqual(parseObject(objStr), obj)
+  t.false(parseObject('hi'))
 })
 
 test('stringify()', (t) => {
-  t.is(typeof utils.stringify(1), 'string')
-  t.is(typeof utils.stringify({ hey: 'hi' }), 'string')
-  t.regex(utils.stringify({ hey: 'hi' }), /^{/)
+  t.is(typeof stringify(1), 'string')
+  t.is(typeof stringify({ hey: 'hi' }), 'string')
+  t.regex(stringify({ hey: 'hi' }), /^{/)
 })

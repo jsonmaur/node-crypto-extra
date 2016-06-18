@@ -1,5 +1,0 @@
-require('./bcrypt')
-require('./checksum')
-require('./encryption')
-require('./hashing')
-require('./random')

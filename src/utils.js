@@ -1,14 +1,9 @@
-module.exports = {
-  parseObject,
-  stringify,
-}
-
 /**
  * Parses an object if it is valid.
  * @param {string} value - The string to check
  * @return {mixed} Returns the object if valid, or false if not
  */
-function parseObject (value) {
+export function parseObject (value) {
   if (typeof value === 'object') {
     return value
   }
@@ -26,7 +21,7 @@ function parseObject (value) {
  * @param {any} value - The value to stringify
  * @return {string} The stringified value
  */
-function stringify (value) {
+export function stringify (value) {
   if (parseObject(value)) {
     return JSON.stringify(value)
   }

@@ -1,9 +1,5 @@
-import path from 'path'
 import test from 'ava'
-import {
-  hash,
-  checksum, checksumSync,
-} from '../src'
+import { hash } from '../src'
 
 test('hash()', (t) => {
   t.is(hash('testing'), 'cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90')
@@ -13,12 +9,4 @@ test('hash()', (t) => {
   t.is(hash('testing', { rounds: 100 }), '2c66de00e03581e03866d7b62a31a7d5776419f498f479a877270294c2600321')
   t.is(hash('testing', { rounds: '100' }), '2c66de00e03581e03866d7b62a31a7d5776419f498f479a877270294c2600321')
   t.throws(() => hash())
-})
-
-test('checksum()', async (t) => {
-  const file = path.resolve(__dirname, './_helpers.js')
-  t.is(await checksum(file), 'edf2b4e7d6028ac2cc974e47244f9bcf061d3c69bfab19f4fb1677c6b969809d')
-  t.is(checksumSync(file), 'edf2b4e7d6028ac2cc974e47244f9bcf061d3c69bfab19f4fb1677c6b969809d')
-  await t.throws(checksum('./i-dont-exist'), Error)
-  t.throws(() => checksumSync('./i-dont-exist'), Error)
 })

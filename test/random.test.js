@@ -1,8 +1,5 @@
 import test from 'ava'
-import {
-  randomString,
-  randomNumber,
-} from '../src'
+import { randomString, randomNumber } from '../src'
 
 test('randomString()', (t) => {
   t.is(typeof randomString(), 'string')

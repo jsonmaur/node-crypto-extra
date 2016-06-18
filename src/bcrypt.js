@@ -1,43 +1,25 @@
-const bcryptjs = require('bcryptjs')
-
-module.exports = {
-  bcrypt,
-  bcryptSync,
-  bcryptCompare,
-  bcryptCompareSync,
-}
+import bcrypt from 'bcrypt'
 
 /**
  * Gets the bcrypt hash of a value.
  * @param {string} value - The value to hash
  * @return {promise} A promise resolving with the hash
  */
-function bcrypt (value, options = {}) {
+export function bcryptHash (value, options = {}) {
   if (!value || typeof value !== 'string') {
     throw new TypeError(`expected string, got ${typeof value}`)
   }
 
   return new Promise((resolve, reject) => {
-    bcryptjs.genSalt(options.saltRounds || 10, (err, salt) => {
+    bcrypt.genSalt(options.saltRounds || 10, (err, salt) => {
       if (err) return reject(err)
 
-      bcryptjs.hash(value, salt, (err, hash) => {
+      bcrypt.hash(value, salt, (err, hash) => {
         if (err) reject(err)
         else resolve(hash)
       })
     })
   })
-}
-
-function bcryptSync (value, options = {}) {
-  if (!value || typeof value !== 'string') {
-    throw new TypeError(`expected string, got ${typeof value}`)
-  }
-
-  const salt = bcryptjs.genSaltSync(options.saltRounds || 10)
-  const hash = bcryptjs.hashSync(value, salt)
-
-  return hash
 }
 
 /**
@@ -46,23 +28,15 @@ function bcryptSync (value, options = {}) {
  * @param {string} hash - The bcrypted hash
  * @return {promise} A promise resolving with a boolean
  */
-function bcryptCompare (value, hash = '') {
+export function bcryptCompare (value, hash = '') {
   if (!value || typeof value !== 'string') {
     throw new TypeError(`expected string, got ${typeof value}`)
   }
 
   return new Promise((resolve, reject) => {
-    bcryptjs.compare(value, hash, (err, res) => {
+    bcrypt.compare(value, hash, (err, res) => {
       if (err) reject(err)
       else resolve(Boolean(res))
     })
   })
-}
-
-function bcryptCompareSync (value, hash = '') {
-  if (!value || typeof value !== 'string') {
-    throw new TypeError(`expected string, got ${typeof value}`)
-  }
-
-  return Boolean(bcryptjs.compareSync(value, hash))
 }

@@ -1,13 +1,5 @@
 import test from 'ava'
-import {
-  getEncryptionKey,
-  constantTimeCompare,
-} from '../src/encryption'
-import {
-  encrypt,
-  decrypt,
-  generateKey,
-} from '../src'
+import { encrypt, decrypt, generateKey } from '../src'
 
 const secretKey = 'asdfasdfasdfasdfasdfasdfasdfasdf'
 
@@ -33,22 +25,11 @@ test('decrypt()', (t) => {
   t.throws(() => decrypt(encryptedObjTampered, secretKey), Error)
 })
 
-test('constantTimeCompare()', (t) => {
-  t.true(constantTimeCompare('cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90', 'cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90'))
-  t.false(constantTimeCompare('cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a90', 'cf80cd8aed482d5d1527d7dc72fceff84e6326592848447d2dc0b0e87dfc9a9'))
-})
-
-test('getEncryptionKey()', (t) => {
-  t.is(getEncryptionKey('12345'), '12345')
-  t.throws(() => getEncryptionKey(), Error)
-})
-
-test('getEncryptionKey() from env', (t) => {
-  process.env.ENCRYPTION_KEY = '54321'
-  t.is(getEncryptionKey(), '54321')
-})
-
 test('generateKey()', (t) => {
   t.is(typeof generateKey(), 'string')
   t.is(generateKey().length, 64)
+  t.is(generateKey(10).length, 10)
+  t.is(generateKey(152).length, 152)
+  t.throws(() => generateKey(65), Error)
+  t.throws(() => generateKey(0), Error)
 })
