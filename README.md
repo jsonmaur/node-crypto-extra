@@ -1,7 +1,8 @@
-# Node.js Crypto-Extra
+# Crypto-Extra for Node.js
 
 [![Build Status](https://travis-ci.org/jsonmaur/node-crypto-extra.svg?branch=master)](https://travis-ci.org/jsonmaur/node-crypto-extra)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmaur/node-crypto-extra/badge.svg?branch=master)](https://coveralls.io/github/jsonmaur/node-crypto-extra?branch=master)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Adds convenience methods to the native Node.js [crypto module](https://nodejs.org/api/crypto.html). It is a drop in replacement, and extends the original module functionality.
 
@@ -16,7 +17,6 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
   - [native crypto methods](https://nodejs.org/api/crypto.html)
-- [License](#license)
 
 ## Why?
 
@@ -162,7 +162,6 @@ Returns a random string within a defined range.
     > Type: `integer`  
     > Default: `9007199254740991`
 
-<a name="license"></a>
 ## License
 
 [MIT](LICENSE) © [Jason Maurer](http://maur.co)

@@ -1,18 +1,14 @@
 import crypto from 'crypto'
-import * as encryption from './encryption'
-import * as hash from './hash'
-import * as bcrypt from './bcrypt'
-import * as random from './random'
+import { encrypt, decrypt, generateKey } from './encryption'
+import { hash } from './hash'
+import { bcryptHash, bcryptCompare } from './bcrypt'
+import { randomString, randomNumber } from './random'
 
 module.exports = Object.assign(crypto, {
-  encrypt: encryption.encrypt,
-  decrypt: encryption.decrypt,
-  generateKey: encryption.generateKey,
-  hash: hash.hash,
-  bcryptHash: bcrypt.bcryptHash,
-  bcryptCompare: bcrypt.bcryptCompare,
-  randomString: random.randomString,
-  randomNumber: random.randomNumber,
+  encrypt, decrypt, generateKey, // from encryption
+  hash, // from hash
+  bcryptHash, bcryptCompare, // from bcrypt
+  randomString, randomNumber // from random
 
   /* deprecated methods */
   // none! :)
