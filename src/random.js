@@ -4,15 +4,14 @@ import { randomBytes } from 'crypto'
  * Creates a random string.
  * @param {integer} size - The size of the returned string
  * @param {string} charset - The charset to pick characters from
- * @return {string} The generated string
+ * @return {Promise => string} The generated string
  */
 export function randomString (size = 10, charset) {
-  if (size <= 0) {
-    throw new Error('random size must be above 0!')
-  }
+  size = typeof size !== 'number' ? size = parseInt(size, 10) : size
+  if (size <= 0) throw new Error('random size must be above 0!')
 
-  if (typeof size !== 'number') {
-    throw new TypeError(`expected number, got ${typeof size}`)
+  if (typeof charset !== 'string') {
+    throw new TypeError(`charset must be a string, got ${typeof charset}`)
   }
 
   const bytes = randomBytes(size)
