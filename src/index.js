@@ -4,9 +4,9 @@ import { hash } from './hash'
 import { randomString, randomNumber } from './random'
 
 module.exports = Object.assign(crypto, {
+  generateKey,
   encrypt,
   decrypt,
-  generateKey,
   hash,
   randomString,
   randomNumber,

@@ -8,9 +8,9 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
 
 - [Getting Started](#getting-started)
 - [API](#api)
+  - [generateKey](#api-generate)
   - [encrypt](#api-encrypt)
   - [decrypt](#api-decrypt)
-  - [generateKey](#api-generate)
   - [hash](#api-hash)
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
@@ -42,6 +42,16 @@ crypto.hash('hello')
 <a name="api"></a>
 ## API
 
+<a name="api-generate"></a>
+### .generateKey (length)
+
+Generates a random 256-bit key that can be used as an encryption key.
+
+- **length** - The length of the key you want to generate. **Must be an even number.**
+
+  > Type: `number`  
+  > Default: `32`
+
 <a name="api-encrypt"></a>
 ### .encrypt (value, secretKey)
 
@@ -69,16 +79,6 @@ Decrypts a value using AES-256-CTR.
 
   > Type: `string`  
   > Default: `process.env.ENCRYPTION_KEY`
-
-<a name="api-generate"></a>
-### .generateKey (length)
-
-Generates a random 256-bit key that can be used as an encryption key.
-
-- **length** - The length of the key you want to generate. **Must be an even number.**
-
-  > Type: `number`  
-  > Default: `32`
 
 <a name="api-hash"></a>
 ### .hash (value, options)
