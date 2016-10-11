@@ -1,5 +1,9 @@
 # Crypto Extra Changelog
 
+## v0.4
+
+- Removed all Bcrypt methods (https://github.com/jsonmaur/node-crypto-extra/issues/1)
+
 ## v0.3
 
 - Removed [npmjs.org/bcryptjs]() package in favor of [npmjs.org/bcrypt](), which relies on `node-gyp` for faster results.

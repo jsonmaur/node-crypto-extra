@@ -12,8 +12,6 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
   - [decrypt](#api-decrypt)
   - [generateKey](#api-generate)
   - [hash](#api-hash)
-  - [bcryptHash](#api-bcrypt-hash)
-  - [bcryptCompare](#api-bcrypt-compare)
   - [randomString](#api-random-string)
   - [randomNumber](#api-random-number)
   - [native crypto methods](https://nodejs.org/api/crypto.html)
@@ -105,34 +103,6 @@ Hashes a string with the provided algorithm.
 
     > Type: `string`  
     > Default: `SHA256`
-
-<a name="api-bcrypt-hash"></a>
-### .bcryptHash (value, options)
-
-Get the bcrypt hash of a string. Returns a promise resolving with the hash.
-
-- **value** - The value you want to hash with bcrypt.
-
-  > Type: `string`  
-
-- **options**
-  - **saltRounds** - The number of rounds to use for generating the salt.
-
-    > Type: `integer`  
-    > Default: `10`
-
-<a name="api-bcrypt-compare"></a>
-### .bcryptCompare (value, hash)
-
-Compare a value to a bcrypt hash to validate whether they're the same. Returns a promise resolving with a boolean.
-
-- **value** - The value to compare to the hash.
-
-  > Type: `string`  
-
-- **hash** - The bcrypt hash to use in the comparison.
-
-  > Type: `string`  
 
 <a name="api-random-string"></a>
 ### .randomString (length, charset)
