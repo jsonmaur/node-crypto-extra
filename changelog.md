@@ -2,7 +2,8 @@
 
 ## v0.4
 
-- Removed all Bcrypt methods (https://github.com/jsonmaur/node-crypto-extra/issues/1)
+- BREAKING: Removed both Bcrypt methods (https://github.com/jsonmaur/node-crypto-extra/issues/1)
+- Bug fixes
 
 ## v0.3
 
