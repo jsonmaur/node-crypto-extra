@@ -1,6 +1,6 @@
 {
   "name": "crypto-extra",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Convenience methods for node crypto",
   "author": "Jason Maurer",
   "license": "MIT",
