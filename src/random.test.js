@@ -7,7 +7,6 @@ test('randomString()', (t) => {
   t.is(randomString(20).length, 20)
   t.throws(() => randomString(0), Error)
   t.throws(() => randomString(-5), Error)
-  t.throws(() => randomString('5'), TypeError)
 })
 
 test('randomNumber()', (t) => {

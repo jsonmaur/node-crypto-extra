@@ -10,12 +10,12 @@ export function randomString (size = 10, charset) {
   size = typeof size !== 'number' ? size = parseInt(size, 10) : size
   if (size <= 0) throw new Error('random size must be above 0!')
 
-  if (typeof charset !== 'string') {
-    throw new TypeError(`charset must be a string, got ${typeof charset}`)
-  }
-
   const bytes = randomBytes(size)
   const chars = charset || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+  if (typeof chars !== 'string') {
+    throw new TypeError(`charset must be a string, got ${typeof chars}`)
+  }
 
   let value = ''
   for (let i = 0, len = bytes.length; i < len; i++) {

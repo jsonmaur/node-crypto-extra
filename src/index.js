@@ -1,23 +1,21 @@
 import crypto from 'crypto'
 import { encrypt, decrypt, generateKey } from './encryption'
 import { hash } from './hash'
-import { bcryptHash, bcryptCompare } from './bcrypt'
 import { randomString, randomNumber } from './random'
 
 module.exports = Object.assign(crypto, {
-  encrypt, decrypt, generateKey, // from encryption
-  hash, // from hash
-  bcryptHash, bcryptCompare, // from bcrypt
-  randomString, randomNumber // from random
+  generateKey,
+  encrypt,
+  decrypt,
+  hash,
+  randomString,
+  randomNumber,
 
   /* deprecated methods */
-  // none! :)
+  bcryptHash: () => deprecationNotice('bcrypt is no longer supported in this module! See https://github.com/jsonmaur/node-crypto-extra/issues/1'),
+  bcryptCompare: () => deprecationNotice('bcrypt is no longer supported in this module! See https://github.com/jsonmaur/node-crypto-extra/issues/1')
 })
 
-// function deprecationNotice (oldName, newName, msg) {
-//   const first = oldName ? `${oldName}() is now deprecated. ` : ''
-//   const second = newName ? `use ${newName}() instead.` : ''
-//
-//   if (msg) console.log(`crypto-extra: ${msg}`)
-//   else console.log(`crypto-extra: ${first}${second}`)
-// }
+function deprecationNotice (msg) {
+  console.log(`crypto-extra: ${msg}`)
+}
