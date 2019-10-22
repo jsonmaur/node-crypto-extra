@@ -10,7 +10,7 @@
 		"url": "git+https://github.com/jsonmaur/node-crypto-extra.git"
 	},
 	"engines": {
-		"node": ">=4"
+		"node": ">=6"
 	},
 	"keywords": [
 		"crypto",
