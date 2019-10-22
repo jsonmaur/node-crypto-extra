@@ -8,10 +8,10 @@ Adds convenience methods to the native Node.js [crypto module](https://nodejs.or
 
 -   [Getting Started](#getting-started)
 -   [API](#api)
-    -   [generateKey](#api-generate)
     -   [encrypt](#api-encrypt)
     -   [decrypt](#api-decrypt)
     -   [hash](#api-hash)
+    -   [randomKey](#api-random-key)
     -   [randomString](#api-random-string)
     -   [randomNumber](#api-random-number)
     -   [native crypto methods](https://nodejs.org/api/crypto.html)
@@ -43,17 +43,6 @@ crypto.hash("hello")
 <a name="api"></a>
 
 ## API
-
-<a name="api-generate"></a>
-
-### .generateKey (length)
-
-Generates a random 256-bit key that can be used as an encryption key.
-
--   **length** - The length of the key you want to generate. **Must be an even number.**
-
-    > Type: `number`  
-    > Default: `32`
 
 <a name="api-encrypt"></a>
 
@@ -111,6 +100,17 @@ Hashes a string with the provided algorithm.
         > Type: `string`  
         > Default: `SHA256`
 
+<a name="api-random-key"></a>
+
+### .randomKey (length)
+
+Generates a random 256-bit key that can be used as an encryption key.
+
+-   **length** - The length of the key you want to generate. **Must be an even number.**
+
+    > Type: `number`  
+    > Default: `32`
+
 <a name="api-random-string"></a>
 
 ### .randomString (length, charset)
@@ -147,4 +147,4 @@ Returns a random string within a defined range.
 
 ## License
 
-[MIT](LICENSE) © [Jason Maurer](http://maur.co)
+[MIT](license) © [Jason Maurer](https://maur.co)
