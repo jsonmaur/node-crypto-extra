@@ -3,5 +3,5 @@
  * if the value is an object.
  */
 export function stringify(value: any): string {
-	return typeof value === 'object' ? JSON.stringify(value) : String(value)
+	return typeof value === "object" ? JSON.stringify(value) : String(value)
 }

@@ -36,8 +36,8 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"clean": "rm -rf dist coverage",
-		"format": "prettier --write './**/*.{js,json,yml,md}'",
-		"format:check": "prettier --check './**/*.{js,json,yml,md}'",
+		"format": "prettier --write './**/*.{ts,json,yml,md}'",
+		"format:check": "prettier --check './**/*.{ts,json,yml,md}'",
 		"test": "npm run format:check && jest --coverage",
 		"coveralls": "cat coverage/lcov.info | coveralls",
 		"prebuild": "npm run clean",
